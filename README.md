@@ -103,6 +103,8 @@ The Python and JavaScript suites assert their test counts. The browser proof req
 
 The initial release passed 30 offline Python tests, eight WebMCP contract tests, and four mutation checks; the independent Chrome proof passed locally and on the live site with all five native tools, 28 invalid-input probes, and zero page errors or overflow in both feature modes. The additional Jev source gate reported zero wrong verdicts (seven uncertain items covered by the tests).
 
+Social previews use the branded 1200×630 `website/og-image.png`; the editable artwork is `assets/og-image.svg`. Rebuild it and the icon fallbacks with `node scripts/render_brand_assets.mjs` (Chrome and DejaVu fonts required). The page includes Open Graph and Twitter card metadata plus JSON-LD describing the page and source repository.
+
 ## Extend
 
 Add datasets and experiment configurations without changing code. To support a different API protocol, add its adapter in `jev_bench/providers.py`, validate its configuration in `jev_bench/config.py`, and cover authentication isolation, malformed responses, and timeout behavior with independent offline tests before a bounded live check.

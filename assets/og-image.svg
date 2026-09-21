@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Jev Bench — Classification, measured.</title>
+  <desc id="desc">A cream, green, and orange social card for the open classifier workbench, with its three-bar brand mark.</desc>
+  <rect width="1200" height="630" fill="#f5f4ef"/>
+  <g fill="#216650">
+    <rect x="64" y="65" width="8" height="21" rx="2"/>
+    <rect x="78" y="49" width="8" height="37" rx="2"/>
+    <rect x="92" y="58" width="8" height="28" rx="2"/>
+  </g>
+  <g font-family="DejaVu Sans, sans-serif">
+    <text x="118" y="82" font-size="33" font-weight="700" letter-spacing="-1.3" fill="#182a30">jev<tspan fill="#d8754c">/</tspan>bench</text>
+    <text x="1136" y="76" font-size="14" text-anchor="end" letter-spacing="2" fill="#216650">OPEN CLASSIFIER WORKBENCH</text>
+    <path d="M64 117H1136" stroke="#d9dfda"/>
+    <text x="60" y="262" font-size="81" letter-spacing="-4" fill="#182a30">Classification,</text>
+    <text x="64" y="367" font-family="DejaVu Serif, serif" font-style="italic" font-size="91" letter-spacing="-4" fill="#216650">measured.</text>
+    <text x="66" y="433" font-size="22" fill="#5d6c6e">Compare models. Measure latency and accuracy.</text>
+    <path d="M64 528H1136" stroke="#d9dfda"/>
+    <text x="64" y="572" font-size="17" fill="#5d6c6e">Configurable models and datasets</text>
+    <text x="1136" y="572" font-size="17" text-anchor="end" fill="#216650">cocodedk.github.io/jev-bench</text>
+  </g>
+  <rect x="827" y="170" width="309" height="300" rx="28" fill="#eaeee5"/>
+  <g>
+    <rect x="872" y="301" width="56" height="114" rx="9" fill="#216650"/>
+    <rect x="954" y="220" width="56" height="195" rx="9" fill="#d8754c"/>
+    <rect x="1036" y="270" width="56" height="145" rx="9" fill="#729286"/>
+  </g>
+</svg>
