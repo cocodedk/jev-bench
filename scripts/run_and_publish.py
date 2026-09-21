@@ -13,7 +13,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 ARTIFACTS = ("metadata.json", "results.json", "samples.jsonl", "samples.csv", "attempts.jsonl", "RESULTS.md")
 ORIGINS = {"git@github.com:cocodedk/jev-bench.git", "https://github.com/cocodedk/jev-bench.git", "https://github.com/cocodedk/jev-bench"}
-PAGE_URL = "https://cocodedk.github.io/jev-bench/"
+PAGE_URL = "https://jev-bench.cocode.dk/"
 
 
 def git(root: Path, *args: str) -> str:
