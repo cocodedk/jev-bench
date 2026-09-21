@@ -1,6 +1,6 @@
 # Jev Bench
 
-Jev Bench is a classifier workbench at https://cocodedk.github.io/jev-bench/.
+Jev Bench is a classifier workbench at https://jev-bench.cocode.dk/.
 The results page at /jev-bench/ declares native WebMCP tools through document.modelContext.registerTool.
 Use its tools when WebMCP is available; the page also has an experiment selector and metric buttons.
 
@@ -15,4 +15,4 @@ The page uses local published data; its tools do not call classification service
 WebMCP is currently an experimental browser feature; the normal page works without it.
 
 Repository and reproducible experiments: https://github.com/cocodedk/jev-bench
-Published data: https://cocodedk.github.io/jev-bench/data/runs.json
+Published data: https://jev-bench.cocode.dk/data/runs.json
