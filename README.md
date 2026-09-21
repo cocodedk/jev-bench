@@ -101,6 +101,8 @@ The Python and JavaScript suites assert their test counts. The browser proof req
 
 [`website/webmcp.js`](website/webmcp.js) registers `describe`, `list_runs`, `get_results`, `select_run`, and `set_metric`; [`llms.txt`](website/llms.txt) describes each tool and its closed response envelope. They share the page's controls and state, make no classifier calls, and send no third-party requests. Native WebMCP is a draft: this build was verified in Chrome 153 with `--enable-features=WebMCP`; ordinary browsers use the same human controls without the API. Re-check the [current specification](https://webmachinelearning.github.io/webmcp/) before changing the integration.
 
+The initial release passed 30 offline Python tests, eight WebMCP contract tests, and four mutation checks; the independent Chrome proof passed locally and on the live site with all five native tools, 28 invalid-input probes, and zero page errors or overflow in both feature modes. The additional Jev source gate reported zero wrong verdicts (seven uncertain items covered by the tests).
+
 ## Extend
 
 Add datasets and experiment configurations without changing code. To support a different API protocol, add its adapter in `jev_bench/providers.py`, validate its configuration in `jev_bench/config.py`, and cover authentication isolation, malformed responses, and timeout behavior with independent offline tests before a bounded live check.
