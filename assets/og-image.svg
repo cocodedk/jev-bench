@@ -16,7 +16,7 @@
     <text x="66" y="433" font-size="22" fill="#5d6c6e">Compare models. Measure latency and accuracy.</text>
     <path d="M64 528H1136" stroke="#d9dfda"/>
     <text x="64" y="572" font-size="17" fill="#5d6c6e">Configurable models and datasets</text>
-    <text x="1136" y="572" font-size="17" text-anchor="end" fill="#216650">cocodedk.github.io/jev-bench</text>
+    <text x="1136" y="572" font-size="17" text-anchor="end" fill="#216650">jev-bench.cocode.dk</text>
   </g>
   <rect x="827" y="170" width="309" height="300" rx="28" fill="#eaeee5"/>
   <g>

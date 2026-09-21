@@ -2,7 +2,7 @@
 
 A classifier workbench for repeatable API experiments: configure models and datasets, measure request latency and label correctness, and publish selected results.
 
-**[Explore the results](https://cocodedk.github.io/jev-bench/)** · [Latest OpenRouter comparison](results/baseline-workbench-2026-09-21/RESULTS.md) · [Jev vs. Laya](results/baseline-classifier-models-2026-09-21/RESULTS.md)
+**[Explore the results](https://jev-bench.cocode.dk/)** · [Latest OpenRouter comparison](results/baseline-workbench-2026-09-21/RESULTS.md) · [Jev vs. Laya](results/baseline-classifier-models-2026-09-21/RESULTS.md)
 
 ## Run an experiment
 
@@ -97,7 +97,7 @@ node scripts/prove_site.mjs
 lintp jev_bench tests scripts website web-tests
 ```
 
-The Python and JavaScript suites assert their test counts. The browser proof requires Node 22+ and Chrome, writes reports/screenshots under ignored `proof/`, and accepts `--url https://cocodedk.github.io/jev-bench/` and `--output proof/live`. It drives the native tools through `getTools()` / `executeTool()` and checks the displayed result state in desktop and mobile viewports; it also verifies clean loading without WebMCP.
+The Python and JavaScript suites assert their test counts. The browser proof requires Node 22+ and Chrome, writes reports/screenshots under ignored `proof/`, and accepts `--url https://jev-bench.cocode.dk/` and `--output proof/live`. It drives the native tools through `getTools()` / `executeTool()` and checks the displayed result state in desktop and mobile viewports; it also verifies clean loading without WebMCP.
 
 [`website/webmcp.js`](website/webmcp.js) registers `describe`, `list_runs`, `get_results`, `select_run`, and `set_metric`; [`llms.txt`](website/llms.txt) describes each tool and its closed response envelope. They share the page's controls and state, make no classifier calls, and send no third-party requests. Native WebMCP is a draft: this build was verified in Chrome 153 with `--enable-features=WebMCP`; ordinary browsers use the same human controls without the API. Re-check the [current specification](https://webmachinelearning.github.io/webmcp/) before changing the integration.
 
