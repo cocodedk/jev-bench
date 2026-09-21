@@ -3,10 +3,14 @@
 import json
 import re
 import shutil
+import sys
 from pathlib import Path
 from typing import Any
 
 ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(ROOT))
+from jev_bench.accuracy import classification_metrics
+
 LABELS = {
     "jev-decisions": "Jev · OpenRouter",
     "openrouter-jev": "Jev · OpenRouter",
@@ -39,20 +43,30 @@ def build(root: Path = ROOT) -> int:
         source_models = {k: v for k, v in summary.items() if k != "paired"} if legacy else summary["models"]
         rounds = result["rounds"] if legacy else result["config"]["rounds"]
         planned = result["expected_measured_pairs"] if legacy else result["planned_measured_per_model"]
+        sample_file = source / "samples.jsonl"
+        samples = None
+        if sample_file.exists():
+            if not sample_file.resolve().is_relative_to(source):
+                raise ValueError("External sample artifact")
+            samples = [json.loads(line) for line in sample_file.read_text().splitlines() if line.strip()]
         models = []
         for name, stats in source_models.items():
+            accuracy = stats.get("accuracy")
+            if accuracy is None and samples is not None:
+                rows = [row for row in samples if row.get("model_name", row.get("provider")) == name]
+                accuracy = classification_metrics(rows, result.get("dataset", {}).get("labels"))
             models.append({"name": name, "label": LABELS.get(name, name),
                 "returned_models": stats["models"] if legacy else stats["returned_models"],
                 "planned": stats.get("planned", planned), "valid_responses": stats["valid_responses"],
                 "correct_labels": stats["correct_labels"], "errors": stats["errors"],
-                "skipped": stats.get("skipped", planned - stats["attempts"]),
+                "skipped": stats.get("skipped", planned - stats["attempts"]), "accuracy": accuracy,
                 **{metric: stats[metric] for metric in ("median_ms", "mean_ms", "p95_ms")}})
         attempts_used = sum(bool(line.strip()) for line in (source / "attempts.jsonl").read_text().splitlines())
         runs.append({"id": run_id, **{key: entry[key] for key in ("title", "subtitle", "dataset", "notes")},
             "started_utc": result["started_utc"], "rounds": rounds, "cases": planned // rounds,
             "measured_calls": sum(stats["attempts"] for stats in source_models.values()),
             "complete": result["complete"], "attempts_used": attempts_used,
-            "models": models, "json_url": f"data/{run_id}.json", "csv_url": f"data/{run_id}.csv"})
+            "models": models, "source": entry.get("source"), "json_url": f"data/{run_id}.json", "csv_url": f"data/{run_id}.csv"})
         artifacts.extend([(source / "results.json", f"{run_id}.json"), (source / "samples.csv", f"{run_id}.csv")])
     if not runs:
         raise ValueError("Select at least one published run")

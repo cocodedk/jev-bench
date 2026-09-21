@@ -37,7 +37,7 @@ export async function registerPageTools(
 		{
 			name: "get_results",
 			description:
-				"Read the selected experiment's latency, correctness, error counts, and returned model names.",
+				"Read the selected experiment's latency, accuracy, error counts, and returned model names.",
 			keys: [],
 			readOnly: true,
 			run: () => controller.getResults(),
@@ -59,14 +59,34 @@ export async function registerPageTools(
 			run: (input) => controller.setMetric(input.metric),
 		},
 	];
+	definitions.push(
+		{
+			name: "get_accuracy",
+			description:
+				"Read the selected model’s classification accuracy, per-class scores, and every incorrect prediction against the dataset labels.",
+			keys: [],
+			readOnly: true,
+			run: () => controller.getAccuracy(),
+		},
+		{
+			name: "select_accuracy_model",
+			description:
+				"Choose a model in the selected experiment and return the accuracy and mistakes now displayed on the page.",
+			keys: ["model_name"],
+			readOnly: false,
+			run: (input) => controller.selectAccuracyModel(input.model_name),
+		},
+	);
 	const registered = [];
 	for (const definition of definitions) {
 		const properties =
-			definition.name === "select_run"
-				? { run_id: { type: "string" } }
-				: definition.name === "set_metric"
-					? { metric: { type: "string", enum: METRICS } }
-					: {};
+			definition.name === "select_accuracy_model"
+				? { model_name: { type: "string" } }
+				: definition.name === "select_run"
+					? { run_id: { type: "string" } }
+					: definition.name === "set_metric"
+						? { metric: { type: "string", enum: METRICS } }
+						: {};
 		try {
 			await registry.registerTool({
 				name: definition.name,
@@ -84,6 +104,8 @@ export async function registerPageTools(
 						"get_results",
 						"select_run",
 						"set_metric",
+						"get_accuracy",
+						"select_accuracy_model",
 					].includes(definition.name),
 				},
 				execute: async (input) => {
@@ -101,6 +123,14 @@ export async function registerPageTools(
 							!METRICS.includes(input.metric)
 						)
 							return failure("unknown_metric");
+						if (
+							definition.name === "select_accuracy_model" &&
+							(typeof input.model_name !== "string" ||
+								!controller
+									.getResults()
+									.models.some((model) => model.name === input.model_name))
+						)
+							return failure("unknown_model");
 						return success(await definition.run(input));
 					} catch {
 						return failure("unavailable");

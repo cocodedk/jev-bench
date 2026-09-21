@@ -64,7 +64,7 @@
   <a class="skip" href="#results">Skip to results</a>
   <header class="site-header wrap">
     <a class="brand" href="./" aria-label="Jev Bench home"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>jev<span class="brand-slash">/</span>bench</a>
-    <nav aria-label="Main"><a href="#method">Method</a><a href="https://github.com/cocodedk/jev-bench">GitHub <span aria-hidden="true">↗</span></a></nav>
+    <nav aria-label="Main"><a href="#accuracy">Accuracy</a><a href="#method">Method</a><a href="https://github.com/cocodedk/jev-bench">GitHub <span aria-hidden="true">↗</span></a></nav>
   </header>
   <main class="wrap">
     <section class="hero">
@@ -90,7 +90,19 @@
         <aside class="experiment-panel"><span class="small-index">EXPERIMENT NOTES</span><h3 id="run-title">—</h3><p id="run-subtitle"></p><dl><dt>Dataset</dt><dd id="dataset">—</dd><dt>Sample</dt><dd id="sample">—</dd><dt>Errors</dt><dd id="errors">—</dd></dl><p id="run-notes" class="run-notes"></p><div class="download-links"><a id="json-link" href="data/runs.json">Results JSON <span aria-hidden="true">↓</span></a><a id="csv-link" href="data/runs.json">Raw samples CSV <span aria-hidden="true">↓</span></a></div></aside>
       </div>
       <div class="table-wrap"><table><caption>Latency and label correctness by model</caption><thead><tr><th scope="col">Model / route</th><th scope="col">Median</th><th scope="col">Mean</th><th scope="col">p95</th><th scope="col">Correct</th><th scope="col">Errors</th></tr></thead><tbody id="results-body"></tbody></table></div>
-      <p class="limits"><strong>A sample, not a leaderboard.</strong> These runs use small synthetic datasets from one machine; network conditions, prompts, backend versions, and routing all affect the numbers.</p>
+      <p class="limits"><strong>A sample, not a leaderboard.</strong> These runs use fixed dataset samples from one machine; accuracy depends on the task and labels, while latency also depends on network conditions and routing.</p>
+    </section>
+    <section id="accuracy" class="accuracy-section" aria-labelledby="accuracy-heading">
+      <div class="section-heading"><div><p class="eyebrow">LABELS CHECKED AGAINST ANSWERS</p><h2 id="accuracy-heading">How accurate is the classification?</h2></div><div class="run-control"><label for="accuracy-model">Model / route</label><select id="accuracy-model" aria-label="Select accuracy model"><option>Loading models…</option></select></div></div>
+      <p class="accuracy-intro">Accuracy measures agreement with the dataset’s expected labels; the model’s confidence is a separate number.</p>
+      <p id="accuracy-status" role="status"></p>
+      <div class="stats-strip accuracy-stats"><div><span class="stat-label">Accuracy</span><strong id="accuracy-score">—</strong></div><div><span class="stat-label">Macro F1</span><strong id="accuracy-f1">—</strong></div><div><span class="stat-label">Correct / valid</span><strong id="accuracy-correct">—</strong></div><div><span class="stat-label">Wrong labels</span><strong id="accuracy-wrong">—</strong></div></div>
+      <p id="dataset-source" class="dataset-source"></p>
+      <div class="accuracy-tables">
+        <div><h3>Per-class performance</h3><p>Recall is the fraction of a class correctly identified; precision is the fraction of its predictions that are correct.</p><div class="table-wrap accuracy-scroll" tabindex="0" role="region" aria-label="Scrollable per-class metrics"><table><caption class="visually-hidden">Per-class classification precision, recall, and F1</caption><thead><tr><th scope="col">Class</th><th scope="col">Correct / valid</th><th scope="col">Precision</th><th scope="col">Recall</th><th scope="col">F1</th></tr></thead><tbody id="accuracy-classes"></tbody></table></div></div>
+        <div><h3>Inspect the mistakes</h3><p id="mistake-description">Every wrong classification from the selected run is listed below.</p><div class="table-wrap accuracy-scroll" tabindex="0" role="region" aria-label="Scrollable classification mistakes"><table><caption class="visually-hidden">Incorrect classifications compared with expected labels</caption><thead><tr><th scope="col">Message</th><th scope="col">Expected</th><th scope="col">Predicted</th></tr></thead><tbody id="accuracy-mistakes"></tbody></table></div></div>
+      </div>
+      <p class="limits">Warmups and invalid responses are excluded; errors and skipped calls remain visible above; macro F1 weights every declared class equally, with zero scores for undefined class ratios.</p>
     </section>
     <section id="method" class="method-section" aria-labelledby="method-heading"><div><p class="eyebrow">HOW IT WORKS</p><h2 id="method-heading">A fairer starting point.</h2><p>Keep the experiment visible, so a result can be questioned and repeated.</p></div><ol class="method-list"><li><span>01</span><div><h3>One dataset, every model</h3><p>Each model receives the same text, labels, and classification instructions; expected answers stay out of the request.</p></div></li><li><span>02</span><div><h3>Rotate the order</h3><p>Shuffle the cases with a recorded seed and counterbalance model order, with warmups reported separately.</p></div></li><li><span>03</span><div><h3>Keep the whole run</h3><p>Save attempts, errors, returned model names, latency, accuracy, and the exact experiment settings.</p></div></li></ol></section>
     <section class="reproduce"><div><p class="eyebrow">YOUR NEXT EXPERIMENT</p><h2>Change a model.<br>Keep the test.</h2><p>Choose an experiment JSON file, point it at your dataset, and run locally with Python.</p><a class="text-link" href="https://github.com/cocodedk/jev-bench#configure-models-and-datasets">See the configuration guide <span aria-hidden="true">↗</span></a></div><pre aria-label="Run the workbench"><code><span># preview the models and request budget</span>

@@ -25,6 +25,53 @@
           "correct_labels": 20,
           "errors": 0,
           "skipped": 0,
+          "accuracy": {
+            "accuracy_pct": 100.0,
+            "macro_f1_pct": 100.0,
+            "correct": 20,
+            "valid": 20,
+            "wrong": 0,
+            "classes": [
+              {
+                "label": "bug report",
+                "support": 5,
+                "predicted": 5,
+                "correct": 5,
+                "precision_pct": 100.0,
+                "recall_pct": 100.0,
+                "f1_pct": 100.0
+              },
+              {
+                "label": "feature request",
+                "support": 5,
+                "predicted": 5,
+                "correct": 5,
+                "precision_pct": 100.0,
+                "recall_pct": 100.0,
+                "f1_pct": 100.0
+              },
+              {
+                "label": "praise",
+                "support": 5,
+                "predicted": 5,
+                "correct": 5,
+                "precision_pct": 100.0,
+                "recall_pct": 100.0,
+                "f1_pct": 100.0
+              },
+              {
+                "label": "other",
+                "support": 5,
+                "predicted": 5,
+                "correct": 5,
+                "precision_pct": 100.0,
+                "recall_pct": 100.0,
+                "f1_pct": 100.0
+              }
+            ],
+            "confusions": [],
+            "mistakes": []
+          },
           "median_ms": 365.51446250000004,
           "mean_ms": 374.59294845,
           "p95_ms": 482.41518565
@@ -40,11 +87,59 @@
           "correct_labels": 20,
           "errors": 0,
           "skipped": 0,
+          "accuracy": {
+            "accuracy_pct": 100.0,
+            "macro_f1_pct": 100.0,
+            "correct": 20,
+            "valid": 20,
+            "wrong": 0,
+            "classes": [
+              {
+                "label": "bug report",
+                "support": 5,
+                "predicted": 5,
+                "correct": 5,
+                "precision_pct": 100.0,
+                "recall_pct": 100.0,
+                "f1_pct": 100.0
+              },
+              {
+                "label": "feature request",
+                "support": 5,
+                "predicted": 5,
+                "correct": 5,
+                "precision_pct": 100.0,
+                "recall_pct": 100.0,
+                "f1_pct": 100.0
+              },
+              {
+                "label": "praise",
+                "support": 5,
+                "predicted": 5,
+                "correct": 5,
+                "precision_pct": 100.0,
+                "recall_pct": 100.0,
+                "f1_pct": 100.0
+              },
+              {
+                "label": "other",
+                "support": 5,
+                "predicted": 5,
+                "correct": 5,
+                "precision_pct": 100.0,
+                "recall_pct": 100.0,
+                "f1_pct": 100.0
+              }
+            ],
+            "confusions": [],
+            "mistakes": []
+          },
           "median_ms": 387.0819575,
           "mean_ms": 409.0545336,
           "p95_ms": 484.4092566000001
         }
       ],
+      "source": null,
       "json_url": "data/baseline-workbench-2026-09-21.json",
       "csv_url": "data/baseline-workbench-2026-09-21.csv"
     },
@@ -72,6 +167,53 @@
           "correct_labels": 20,
           "errors": 0,
           "skipped": 0,
+          "accuracy": {
+            "accuracy_pct": 100.0,
+            "macro_f1_pct": 100.0,
+            "correct": 20,
+            "valid": 20,
+            "wrong": 0,
+            "classes": [
+              {
+                "label": "bug report",
+                "support": 5,
+                "predicted": 5,
+                "correct": 5,
+                "precision_pct": 100.0,
+                "recall_pct": 100.0,
+                "f1_pct": 100.0
+              },
+              {
+                "label": "feature request",
+                "support": 5,
+                "predicted": 5,
+                "correct": 5,
+                "precision_pct": 100.0,
+                "recall_pct": 100.0,
+                "f1_pct": 100.0
+              },
+              {
+                "label": "praise",
+                "support": 5,
+                "predicted": 5,
+                "correct": 5,
+                "precision_pct": 100.0,
+                "recall_pct": 100.0,
+                "f1_pct": 100.0
+              },
+              {
+                "label": "other",
+                "support": 5,
+                "predicted": 5,
+                "correct": 5,
+                "precision_pct": 100.0,
+                "recall_pct": 100.0,
+                "f1_pct": 100.0
+              }
+            ],
+            "confusions": [],
+            "mistakes": []
+          },
           "median_ms": 389.00834699999996,
           "mean_ms": 393.60911605,
           "p95_ms": 459.59360404999995
@@ -87,11 +229,72 @@
           "correct_labels": 19,
           "errors": 0,
           "skipped": 0,
+          "accuracy": {
+            "accuracy_pct": 95.0,
+            "macro_f1_pct": 94.94949494949495,
+            "correct": 19,
+            "valid": 20,
+            "wrong": 1,
+            "classes": [
+              {
+                "label": "bug report",
+                "support": 5,
+                "predicted": 4,
+                "correct": 4,
+                "precision_pct": 100.0,
+                "recall_pct": 80.0,
+                "f1_pct": 88.88888888888889
+              },
+              {
+                "label": "feature request",
+                "support": 5,
+                "predicted": 5,
+                "correct": 5,
+                "precision_pct": 100.0,
+                "recall_pct": 100.0,
+                "f1_pct": 100.0
+              },
+              {
+                "label": "praise",
+                "support": 5,
+                "predicted": 5,
+                "correct": 5,
+                "precision_pct": 100.0,
+                "recall_pct": 100.0,
+                "f1_pct": 100.0
+              },
+              {
+                "label": "other",
+                "support": 5,
+                "predicted": 6,
+                "correct": 5,
+                "precision_pct": 83.33333333333333,
+                "recall_pct": 100.0,
+                "f1_pct": 90.9090909090909
+              }
+            ],
+            "confusions": [
+              {
+                "expected": "bug report",
+                "predicted": "other",
+                "count": 1
+              }
+            ],
+            "mistakes": [
+              {
+                "case_id": "feedback-13",
+                "text": "After I save a note and reopen it, the last paragraph is missing.",
+                "expected": "bug report",
+                "predicted": "other"
+              }
+            ]
+          },
           "median_ms": 502.91727199999997,
           "mean_ms": 516.1258943,
           "p95_ms": 716.1138349000001
         }
       ],
+      "source": null,
       "json_url": "data/baseline-classifier-models-2026-09-21.json",
       "csv_url": "data/baseline-classifier-models-2026-09-21.csv"
     },
@@ -119,6 +322,53 @@
           "correct_labels": 20,
           "errors": 0,
           "skipped": 0,
+          "accuracy": {
+            "accuracy_pct": 100.0,
+            "macro_f1_pct": 100.0,
+            "correct": 20,
+            "valid": 20,
+            "wrong": 0,
+            "classes": [
+              {
+                "label": "bug report",
+                "support": 5,
+                "predicted": 5,
+                "correct": 5,
+                "precision_pct": 100.0,
+                "recall_pct": 100.0,
+                "f1_pct": 100.0
+              },
+              {
+                "label": "feature request",
+                "support": 5,
+                "predicted": 5,
+                "correct": 5,
+                "precision_pct": 100.0,
+                "recall_pct": 100.0,
+                "f1_pct": 100.0
+              },
+              {
+                "label": "other",
+                "support": 5,
+                "predicted": 5,
+                "correct": 5,
+                "precision_pct": 100.0,
+                "recall_pct": 100.0,
+                "f1_pct": 100.0
+              },
+              {
+                "label": "praise",
+                "support": 5,
+                "predicted": 5,
+                "correct": 5,
+                "precision_pct": 100.0,
+                "recall_pct": 100.0,
+                "f1_pct": 100.0
+              }
+            ],
+            "confusions": [],
+            "mistakes": []
+          },
           "median_ms": 399.04472350000003,
           "mean_ms": 421.6488199,
           "p95_ms": 507.8662813
@@ -134,11 +384,59 @@
           "correct_labels": 20,
           "errors": 0,
           "skipped": 0,
+          "accuracy": {
+            "accuracy_pct": 100.0,
+            "macro_f1_pct": 100.0,
+            "correct": 20,
+            "valid": 20,
+            "wrong": 0,
+            "classes": [
+              {
+                "label": "bug report",
+                "support": 5,
+                "predicted": 5,
+                "correct": 5,
+                "precision_pct": 100.0,
+                "recall_pct": 100.0,
+                "f1_pct": 100.0
+              },
+              {
+                "label": "feature request",
+                "support": 5,
+                "predicted": 5,
+                "correct": 5,
+                "precision_pct": 100.0,
+                "recall_pct": 100.0,
+                "f1_pct": 100.0
+              },
+              {
+                "label": "other",
+                "support": 5,
+                "predicted": 5,
+                "correct": 5,
+                "precision_pct": 100.0,
+                "recall_pct": 100.0,
+                "f1_pct": 100.0
+              },
+              {
+                "label": "praise",
+                "support": 5,
+                "predicted": 5,
+                "correct": 5,
+                "precision_pct": 100.0,
+                "recall_pct": 100.0,
+                "f1_pct": 100.0
+              }
+            ],
+            "confusions": [],
+            "mistakes": []
+          },
           "median_ms": 499.233387,
           "mean_ms": 467.9846125,
           "p95_ms": 512.4654434000001
         }
       ],
+      "source": null,
       "json_url": "data/baseline-2026-09-21.json",
       "csv_url": "data/baseline-2026-09-21.csv"
     }

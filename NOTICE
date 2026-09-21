@@ -4,3 +4,14 @@ Copyright 2026 Cocode
 The OpenRouter Decisions adapter follows validation patterns from
 wuyoscar/jev-skill v0.1.2 (MIT), through the local jev-decisions skill.
 Its original copyright and license are retained in licenses/jev-skill-MIT.txt.
+
+BANKING77 dataset excerpts in datasets/, results/, and website/data/ are
+licensed CC BY 4.0 by PolyAI and credited to Inigo Casanueva, Tadas Temcinas,
+Daniela Gerz, Matthew Henderson, and Ivan Vulic (2020),
+Efficient Intent Detection with Dual Sentence Encoders:
+https://arxiv.org/abs/2003.04807
+Source: https://github.com/PolyAI-LDN/task-specific-datasets
+License: https://creativecommons.org/licenses/by/4.0/
+The selected test subset is converted to JSON without changing source text or
+labels; sampling, instructions, and warmup additions are recorded in
+datasets/banking77-sample.provenance.json. See licenses/BANKING77-CC-BY-4.0.txt.

@@ -116,7 +116,7 @@ def run_experiment(experiment: Experiment, output: Path,
         raise RuntimeError("Attempt budget exceeded")
     result = {**metadata, "attempts_used": len(rows), "complete": len(rows) == len(schedule),
               "stop_reason": stop_reason, "all_valid": bool(rows) and all(r["ok"] for r in rows),
-              "summary": summarize(rows, names, experiment.measured_per_model)}
+              "summary": summarize(rows, names, experiment.measured_per_model, experiment.dataset["labels"])}
     (output / "results.json").write_text(json.dumps(result, indent=2) + "\n")
     (output / "RESULTS.md").write_text(markdown_report(result))
     fields = sorted({key for row in rows for key in row}) or ["model_name", "ok"]

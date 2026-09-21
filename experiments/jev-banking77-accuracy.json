@@ -1,0 +1,15 @@
+{
+  "dataset": "../datasets/banking77-sample.json",
+  "rounds": 1,
+  "warmups": 1,
+  "seed": 42,
+  "timeout_seconds": 20,
+  "max_seconds": 600,
+  "models": [
+    {
+      "name": "openrouter-jev",
+      "adapter": "openrouter-decisions",
+      "model": "typesafe/jev-1.13"
+    }
+  ]
+}

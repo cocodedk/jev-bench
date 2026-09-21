@@ -1,3 +1,13 @@
+## 2026-09-21 (Codex) — Measured Jev classification accuracy and automated publication
+
+**State:** Jev matched 240/308 BANKING77 test labels (77.9% accuracy, 76.4% macro F1), with 68 wrong labels and no request errors; the fixed sample covers all 77 intents and the page exposes every mistake.
+
+**Tried:** Independent gates verified source sampling and answer-free requests, 52 Python tests, 13 web tests, six mutation kills, and native/fallback Chrome with all seven tools; page proof is in `proof/accuracy-site/proof.json`.
+
+**Lesson:** A perfect score on 20 synthetic examples does not establish classification quality; use a fixed labeled task and retain every error before changing the prompt.
+
+**Next:** Publish the saved run with `scripts/run_and_publish.py --existing-run` after merging the feature; subsequent run-and-publish commands update the page automatically without editing its manifest.
+
 ## 2026-09-21 (Codex) — Completed social sharing metadata
 
 **State:** The missing OG image and social metadata are complete and independently reviewed for publication; the image is a 1200×630 render of the existing vector branding, and the application body is unchanged.

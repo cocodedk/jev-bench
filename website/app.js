@@ -6,6 +6,9 @@ const format = (value) => (Number.isFinite(value) ? value.toFixed(1) : "—");
 let runs = [];
 let selected = null;
 let metric = "median_ms";
+let accuracyModel = null;
+const percent = (value) =>
+	Number.isFinite(value) ? `${value.toFixed(1)}%` : "—";
 
 function element(tag, className, text) {
 	const node = document.createElement(tag);
@@ -19,6 +22,7 @@ function snapshot() {
 		run_id: selected.id,
 		title: selected.title,
 		metric,
+		accuracy_model: accuracyModel,
 		started_utc: selected.started_utc,
 		measured_calls: selected.measured_calls,
 		dataset: selected.dataset,
@@ -32,6 +36,8 @@ function snapshot() {
 			valid_responses: model.valid_responses,
 			planned: model.planned,
 			correct_labels: model.correct_labels,
+			accuracy_pct: model.accuracy?.accuracy_pct ?? null,
+			macro_f1_pct: model.accuracy?.macro_f1_pct ?? null,
 			errors: model.errors,
 			skipped: model.skipped,
 		})),
@@ -39,8 +45,94 @@ function snapshot() {
 	};
 }
 
+function getAccuracy() {
+	const model =
+		selected.models.find((item) => item.name === accuracyModel) ||
+		selected.models[0];
+	return {
+		run_id: selected.id,
+		model_name: model.name,
+		model_label: model.label,
+		available_models: selected.models.map((item) => ({
+			name: item.name,
+			label: item.label,
+		})),
+		metrics: model.accuracy ?? null,
+		valid_responses: model.valid_responses,
+		planned: model.planned,
+		errors: model.errors,
+		skipped: model.skipped,
+		source: selected.source ?? null,
+	};
+}
+
+function renderAccuracy() {
+	const report = getAccuracy();
+	const metrics = report.metrics;
+	const picker = byId("accuracy-model");
+	picker.replaceChildren();
+	for (const model of report.available_models) {
+		const option = element("option", "", model.label);
+		option.value = model.name;
+		picker.append(option);
+	}
+	picker.value = report.model_name;
+	byId("accuracy-score").textContent = percent(metrics?.accuracy_pct);
+	byId("accuracy-f1").textContent = percent(metrics?.macro_f1_pct);
+	byId("accuracy-correct").textContent = metrics
+		? `${metrics.correct} / ${metrics.valid}`
+		: "—";
+	byId("accuracy-wrong").textContent = metrics ? String(metrics.wrong) : "—";
+	byId("accuracy-status").textContent =
+		`${report.valid_responses}/${report.planned} valid measured responses · ${report.errors} errors · ${report.skipped} skipped`;
+	const source = byId("dataset-source");
+	source.replaceChildren();
+	if (report.source) {
+		const link = element("a", "", report.source.name);
+		link.href = report.source.url;
+		source.append(
+			"Dataset: ",
+			link,
+			` · ${report.source.credit} · ${report.source.license}. ${report.source.note}`,
+		);
+	} else
+		source.textContent =
+			`Dataset: ${selected.dataset}; accuracy applies to this sample, and source details are in the downloadable run data.`;
+	const classes = byId("accuracy-classes");
+	classes.replaceChildren();
+	for (const row of metrics?.classes ?? []) {
+		const tr = element("tr");
+		tr.append(element("td", "", row.label.replaceAll("_", " ")));
+		tr.append(element("td", "", `${row.correct}/${row.support}`));
+		for (const key of ["precision_pct", "recall_pct", "f1_pct"])
+			tr.append(element("td", "", percent(row[key])));
+		classes.append(tr);
+	}
+	const mistakes = byId("accuracy-mistakes");
+	mistakes.replaceChildren();
+	for (const row of metrics?.mistakes ?? []) {
+		const tr = element("tr");
+		const message = element("td", "", row.text);
+		message.append(element("small", "", row.case_id));
+		tr.append(message);
+		tr.append(
+			element("td", "", row.expected.replaceAll("_", " ")),
+			element("td", "", row.predicted.replaceAll("_", " ")),
+		);
+		mistakes.append(tr);
+	}
+	byId("mistake-description").textContent = !metrics
+		? "Detailed samples are unavailable for this run."
+		: metrics.valid === 0
+			? "No valid measured responses to evaluate."
+			: metrics.wrong === 0
+				? "No wrong labels in this sample; use a broader dataset to test the limits."
+				: `${metrics.wrong} wrong labels are shown with the dataset’s expected answers; disputed labels remain visible for review.`;
+}
+
 function render() {
 	const models = selected.models;
+	renderAccuracy();
 	byId("run-picker").value = selected.id;
 	byId("calls").textContent = String(selected.measured_calls);
 	byId("models").textContent = String(models.length);
@@ -123,16 +215,30 @@ const controller = {
 		content: "Published API classification latency and correctness experiments",
 		selected_run: selected.id,
 		metric,
-		controls: ["experiment selector", "latency metric buttons"],
+		controls: [
+			"experiment selector",
+			"latency metric buttons",
+			"accuracy model selector",
+		],
+		available_accuracy_models: selected.models.map((model) => model.name),
 		available_metrics: Object.keys(METRICS),
 		available_run_ids: runs.map((run) => run.id),
 	}),
 	listRuns: () => runs.map((run) => ({ id: run.id, title: run.title })),
 	getResults: snapshot,
+	getAccuracy,
+	selectAccuracyModel: (name) => {
+		if (selected.models.some((model) => model.name === name)) {
+			accuracyModel = name;
+			renderAccuracy();
+		}
+		return getAccuracy();
+	},
 	selectRun: (id) => {
 		const run = runs.find((item) => item.id === id);
 		if (run) {
 			selected = run;
+			accuracyModel = run.models[0].name;
 			render();
 		}
 		return snapshot();
@@ -155,6 +261,10 @@ async function init() {
 			throw new Error("No published runs");
 		runs = data.runs;
 		selected = runs[0];
+		accuracyModel = selected.models[0].name;
+		byId("accuracy-model").addEventListener("change", () =>
+			controller.selectAccuracyModel(byId("accuracy-model").value),
+		);
 		const picker = byId("run-picker");
 		picker.replaceChildren();
 		for (const run of runs) {
