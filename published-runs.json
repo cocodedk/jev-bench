@@ -1,28 +1,43 @@
 {
-	"runs": [
-		{
-			"id": "baseline-workbench-2026-09-21",
-			"title": "Jev vs. classifier.dev",
-			"subtitle": "Workbench runner \u00b7 OpenRouter and classifier.dev",
-			"path": "results/baseline-workbench-2026-09-21",
-			"dataset": "Customer feedback",
-			"notes": "Twenty synthetic messages, four labels, and one excluded warmup per route; both routes returned all 20 expected labels."
-		},
-		{
-			"id": "baseline-classifier-models-2026-09-21",
-			"title": "Jev vs. Laya",
-			"subtitle": "Workbench runner \u00b7 two classifier.dev models",
-			"path": "results/baseline-classifier-models-2026-09-21",
-			"dataset": "Customer feedback",
-			"notes": "Same dataset and fast tier; Jev returned 20/20 expected labels and Laya 19/20, with no failed requests."
-		},
-		{
-			"id": "baseline-2026-09-21",
-			"title": "Jev vs. classifier.dev \u00b7 prototype",
-			"subtitle": "Original prototype \u00b7 one message per request",
-			"path": "results/baseline-2026-09-21",
-			"dataset": "Customer feedback",
-			"notes": "Twenty synthetic messages, four labels, and one excluded warmup per service."
-		}
-	]
+  "runs": [
+    {
+      "id": "run-banking77-20260921",
+      "title": "BANKING77 · 1 model",
+      "subtitle": "77 labels · expected answers withheld",
+      "path": "results/published/run-banking77-20260921",
+      "dataset": "banking77-test-sample-308",
+      "notes": "308 labeled cases, 1 round(s), 309 recorded attempts; inspect accuracy and individual mistakes below.",
+      "source": {
+        "name": "BANKING77",
+        "url": "https://raw.githubusercontent.com/PolyAI-LDN/task-specific-datasets/57ec275d8078af65b7731c2a98be812d844a6d6b/banking_data/test.csv",
+        "credit": "Inigo Casanueva, Tadas Temcinas, Daniela Gerz, Matthew Henderson, Ivan Vulic; PolyAI",
+        "license": "CC-BY-4.0",
+        "note": "One English banking-domain sample, four test messages per intent; not the full official benchmark. Pretraining exposure is unknown; no training examples or in-context examples supplied."
+      }
+    },
+    {
+      "id": "baseline-workbench-2026-09-21",
+      "title": "Jev vs. classifier.dev",
+      "subtitle": "Workbench runner · OpenRouter and classifier.dev",
+      "path": "results/baseline-workbench-2026-09-21",
+      "dataset": "Customer feedback",
+      "notes": "Twenty synthetic messages, four labels, and one excluded warmup per route; both routes returned all 20 expected labels."
+    },
+    {
+      "id": "baseline-classifier-models-2026-09-21",
+      "title": "Jev vs. Laya",
+      "subtitle": "Workbench runner · two classifier.dev models",
+      "path": "results/baseline-classifier-models-2026-09-21",
+      "dataset": "Customer feedback",
+      "notes": "Same dataset and fast tier; Jev returned 20/20 expected labels and Laya 19/20, with no failed requests."
+    },
+    {
+      "id": "baseline-2026-09-21",
+      "title": "Jev vs. classifier.dev · prototype",
+      "subtitle": "Original prototype · one message per request",
+      "path": "results/baseline-2026-09-21",
+      "dataset": "Customer feedback",
+      "notes": "Twenty synthetic messages, four labels, and one excluded warmup per service."
+    }
+  ]
 }
