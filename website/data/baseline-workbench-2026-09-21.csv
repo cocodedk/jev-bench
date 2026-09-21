@@ -1,0 +1,43 @@
+adapter,case_id,confidence,expected,label,latency_ms,model_name,ok,pair,requested_model,returned_model,text,wall_ms,warmup
+openrouter-decisions,warmup,1.0,praise,praise,549.490498,openrouter-jev,True,-1,typesafe/jev-1.13,typesafe/jev-1.13-20260917,I love how easy this app is to use.,683.265034,True
+classifier.dev,warmup,1.0,praise,praise,556.350966,classifier-jev,True,-1,jev,jev-1.13.0,I love how easy this app is to use.,676.268371,True
+openrouter-decisions,feedback-20,0.97,other,other,364.645711,openrouter-jev,True,0,typesafe/jev-1.13,typesafe/jev-1.13-20260917,Do you offer training sessions for new customers?,493.329448,False
+classifier.dev,feedback-20,0.99,other,other,477.208626,classifier-jev,True,0,jev,jev-1.13.0,Do you offer training sessions for new customers?,605.189824,False
+classifier.dev,feedback-06,1.0,feature request,feature request,621.221238,classifier-jev,True,1,jev,jev-1.13.0,Could you support signing in with a hardware security key?,743.250065,False
+openrouter-decisions,feedback-06,0.99,feature request,feature request,360.297659,openrouter-jev,True,1,typesafe/jev-1.13,typesafe/jev-1.13-20260917,Could you support signing in with a hardware security key?,477.030229,False
+classifier.dev,feedback-15,1.0,praise,praise,361.765491,classifier-jev,True,2,jev,jev-1.13.0,The keyboard shortcuts have made my daily work much easier.,488.737859,False
+openrouter-decisions,feedback-15,1.0,praise,praise,343.276556,openrouter-jev,True,2,typesafe/jev-1.13,typesafe/jev-1.13-20260917,The keyboard shortcuts have made my daily work much easier.,484.19616,False
+openrouter-decisions,feedback-05,1.0,bug report,bug report,366.383214,openrouter-jev,True,3,typesafe/jev-1.13,typesafe/jev-1.13-20260917,"I enter the correct password, but the login page stays blank.",495.585282,False
+classifier.dev,feedback-05,1.0,bug report,bug report,451.009832,classifier-jev,True,3,jev,jev-1.13.0,"I enter the correct password, but the login page stays blank.",583.778215,False
+openrouter-decisions,feedback-10,0.93,feature request,feature request,391.728733,openrouter-jev,True,4,typesafe/jev-1.13,typesafe/jev-1.13-20260917,I would like a dark theme for the mobile app.,505.601949,False
+classifier.dev,feedback-10,0.99,feature request,feature request,360.038877,classifier-jev,True,4,jev,jev-1.13.0,I would like a dark theme for the mobile app.,476.753295,False
+classifier.dev,feedback-14,1.0,feature request,feature request,372.406745,classifier-jev,True,5,jev,jev-1.13.0,It would help if tasks could repeat on the first weekday of each month.,503.720058,False
+openrouter-decisions,feedback-14,1.0,feature request,feature request,349.246217,openrouter-jev,True,5,typesafe/jev-1.13,typesafe/jev-1.13-20260917,It would help if tasks could repeat on the first weekday of each month.,476.735048,False
+classifier.dev,feedback-16,1.0,other,other,386.362936,classifier-jev,True,6,jev,jev-1.13.0,Please tell me which subscription plan I currently have.,523.268564,False
+openrouter-decisions,feedback-16,1.0,other,other,481.945551,openrouter-jev,True,6,typesafe/jev-1.13,typesafe/jev-1.13-20260917,Please tell me which subscription plan I currently have.,604.420881,False
+openrouter-decisions,feedback-19,1.0,praise,praise,366.576025,openrouter-jev,True,7,typesafe/jev-1.13,typesafe/jev-1.13-20260917,This is the cleanest interface I have used for managing projects.,486.783901,False
+classifier.dev,feedback-19,1.0,praise,praise,359.518368,classifier-jev,True,7,jev,jev-1.13.0,This is the cleanest interface I have used for managing projects.,481.572529,False
+openrouter-decisions,feedback-07,1.0,praise,praise,377.401255,openrouter-jev,True,8,typesafe/jev-1.13,typesafe/jev-1.13-20260917,Thank you for making the setup so straightforward.,489.32923,False
+classifier.dev,feedback-07,1.0,praise,praise,413.972029,classifier-jev,True,8,jev,jev-1.13.0,Thank you for making the setup so straightforward.,538.232268,False
+classifier.dev,feedback-13,1.0,bug report,bug report,432.169931,classifier-jev,True,9,jev,jev-1.13.0,"After I save a note and reopen it, the last paragraph is missing.",543.074294,False
+openrouter-decisions,feedback-13,1.0,bug report,bug report,347.886116,openrouter-jev,True,9,typesafe/jev-1.13,typesafe/jev-1.13-20260917,"After I save a note and reopen it, the last paragraph is missing.",460.885562,False
+classifier.dev,feedback-18,1.0,feature request,feature request,371.414675,classifier-jev,True,10,jev,jev-1.13.0,Please introduce a read-only role for external reviewers.,492.247656,False
+openrouter-decisions,feedback-18,1.0,feature request,feature request,377.209835,openrouter-jev,True,10,typesafe/jev-1.13,typesafe/jev-1.13-20260917,Please introduce a read-only role for external reviewers.,515.405627,False
+openrouter-decisions,feedback-11,1.0,praise,praise,337.313909,openrouter-jev,True,11,typesafe/jev-1.13,typesafe/jev-1.13-20260917,Your support team solved my problem quickly; excellent service.,473.321909,False
+classifier.dev,feedback-11,1.0,praise,praise,381.532033,classifier-jev,True,11,jev,jev-1.13.0,Your support team solved my problem quickly; excellent service.,516.285963,False
+openrouter-decisions,feedback-02,1.0,feature request,feature request,352.289422,openrouter-jev,True,12,typesafe/jev-1.13,typesafe/jev-1.13-20260917,Please add an option to export reports as CSV.,463.461637,False
+classifier.dev,feedback-02,1.0,feature request,feature request,387.800979,classifier-jev,True,12,jev,jev-1.13.0,Please add an option to export reports as CSV.,542.820028,False
+classifier.dev,feedback-12,1.0,other,other,332.552023,classifier-jev,True,13,jev,jev-1.13.0,Is your company based in Denmark?,421.068094,False
+openrouter-decisions,feedback-12,1.0,other,other,361.301799,openrouter-jev,True,13,typesafe/jev-1.13,typesafe/jev-1.13-20260917,Is your company based in Denmark?,451.223013,False
+classifier.dev,feedback-03,1.0,praise,praise,439.315893,classifier-jev,True,14,jev,jev-1.13.0,The new dashboard looks fantastic and is a pleasure to use.,554.505684,False
+openrouter-decisions,feedback-03,1.0,praise,praise,355.956473,openrouter-jev,True,14,typesafe/jev-1.13,typesafe/jev-1.13-20260917,The new dashboard looks fantastic and is a pleasure to use.,547.498067,False
+openrouter-decisions,feedback-17,1.0,bug report,bug report,332.217143,openrouter-jev,True,15,typesafe/jev-1.13,typesafe/jev-1.13-20260917,"The progress bar reaches 100 percent, but the uploaded file never appears.",472.461356,False
+classifier.dev,feedback-17,1.0,bug report,bug report,402.354909,classifier-jev,True,15,jev,jev-1.13.0,"The progress bar reaches 100 percent, but the uploaded file never appears.",584.286195,False
+openrouter-decisions,feedback-08,1.0,other,other,387.150777,openrouter-jev,True,16,typesafe/jev-1.13,typesafe/jev-1.13-20260917,Where can I find a copy of last month's invoice?,512.753632,False
+classifier.dev,feedback-08,1.0,other,other,373.221798,classifier-jev,True,16,jev,jev-1.13.0,Where can I find a copy of last month's invoice?,524.668331,False
+classifier.dev,feedback-09,1.0,bug report,bug report,430.202326,classifier-jev,True,17,jev,jev-1.13.0,The search field returns no results for files that are visible in my folder.,614.609276,False
+openrouter-decisions,feedback-09,1.0,bug report,bug report,380.65796,openrouter-jev,True,17,typesafe/jev-1.13,typesafe/jev-1.13-20260917,The search field returns no results for files that are visible in my folder.,532.132703,False
+classifier.dev,feedback-01,1.0,bug report,bug report,452.856413,classifier-jev,True,18,jev,jev-1.13.0,The app crashes every time I click Export.,612.857271,False
+openrouter-decisions,feedback-01,1.0,bug report,bug report,367.03637,openrouter-jev,True,18,typesafe/jev-1.13,typesafe/jev-1.13-20260917,The app crashes every time I click Export.,516.074103,False
+openrouter-decisions,feedback-04,1.0,other,other,491.338244,openrouter-jev,True,19,typesafe/jev-1.13,typesafe/jev-1.13-20260917,What time does your support team open on Monday?,604.099248,False
+classifier.dev,feedback-04,1.0,other,other,374.16555,classifier-jev,True,19,jev,jev-1.13.0,What time does your support team open on Monday?,501.203991,False

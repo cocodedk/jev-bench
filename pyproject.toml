@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "jev-bench"
+version = "0.1.0"
+description = "Repeatable latency and accuracy experiments for classification APIs"
+requires-python = ">=3.10"
+dependencies = []
+
+[project.scripts]
+jev-bench = "jev_bench.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["jev_bench*"]

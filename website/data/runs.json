@@ -1,0 +1,146 @@
+{
+  "version": 1,
+  "runs": [
+    {
+      "id": "baseline-workbench-2026-09-21",
+      "title": "Jev vs. classifier.dev",
+      "subtitle": "Workbench runner \u00b7 OpenRouter and classifier.dev",
+      "dataset": "Customer feedback",
+      "notes": "Twenty synthetic messages, four labels, and one excluded warmup per route; both routes returned all 20 expected labels.",
+      "started_utc": "2026-09-21T10:55:44.162515+00:00",
+      "rounds": 1,
+      "cases": 20,
+      "measured_calls": 40,
+      "complete": true,
+      "attempts_used": 42,
+      "models": [
+        {
+          "name": "openrouter-jev",
+          "label": "Jev \u00b7 OpenRouter",
+          "returned_models": [
+            "typesafe/jev-1.13-20260917"
+          ],
+          "planned": 20,
+          "valid_responses": 20,
+          "correct_labels": 20,
+          "errors": 0,
+          "skipped": 0,
+          "median_ms": 365.51446250000004,
+          "mean_ms": 374.59294845,
+          "p95_ms": 482.41518565
+        },
+        {
+          "name": "classifier-jev",
+          "label": "classifier.dev \u00b7 Jev",
+          "returned_models": [
+            "jev-1.13.0"
+          ],
+          "planned": 20,
+          "valid_responses": 20,
+          "correct_labels": 20,
+          "errors": 0,
+          "skipped": 0,
+          "median_ms": 387.0819575,
+          "mean_ms": 409.0545336,
+          "p95_ms": 484.4092566000001
+        }
+      ],
+      "json_url": "data/baseline-workbench-2026-09-21.json",
+      "csv_url": "data/baseline-workbench-2026-09-21.csv"
+    },
+    {
+      "id": "baseline-classifier-models-2026-09-21",
+      "title": "Jev vs. Laya",
+      "subtitle": "Workbench runner \u00b7 two classifier.dev models",
+      "dataset": "Customer feedback",
+      "notes": "Same dataset and fast tier; Jev returned 20/20 expected labels and Laya 19/20, with no failed requests.",
+      "started_utc": "2026-09-21T10:56:06.905155+00:00",
+      "rounds": 1,
+      "cases": 20,
+      "measured_calls": 40,
+      "complete": true,
+      "attempts_used": 42,
+      "models": [
+        {
+          "name": "classifier-jev",
+          "label": "classifier.dev \u00b7 Jev",
+          "returned_models": [
+            "jev-1.13.0"
+          ],
+          "planned": 20,
+          "valid_responses": 20,
+          "correct_labels": 20,
+          "errors": 0,
+          "skipped": 0,
+          "median_ms": 389.00834699999996,
+          "mean_ms": 393.60911605,
+          "p95_ms": 459.59360404999995
+        },
+        {
+          "name": "classifier-laya",
+          "label": "classifier.dev \u00b7 Laya",
+          "returned_models": [
+            "laya-0.3.4-english-fast"
+          ],
+          "planned": 20,
+          "valid_responses": 20,
+          "correct_labels": 19,
+          "errors": 0,
+          "skipped": 0,
+          "median_ms": 502.91727199999997,
+          "mean_ms": 516.1258943,
+          "p95_ms": 716.1138349000001
+        }
+      ],
+      "json_url": "data/baseline-classifier-models-2026-09-21.json",
+      "csv_url": "data/baseline-classifier-models-2026-09-21.csv"
+    },
+    {
+      "id": "baseline-2026-09-21",
+      "title": "Jev vs. classifier.dev \u00b7 prototype",
+      "subtitle": "Original prototype \u00b7 one message per request",
+      "dataset": "Customer feedback",
+      "notes": "Twenty synthetic messages, four labels, and one excluded warmup per service.",
+      "started_utc": "2026-09-21T10:39:37.678297+00:00",
+      "rounds": 1,
+      "cases": 20,
+      "measured_calls": 40,
+      "complete": true,
+      "attempts_used": 42,
+      "models": [
+        {
+          "name": "jev-decisions",
+          "label": "Jev \u00b7 OpenRouter",
+          "returned_models": [
+            "typesafe/jev-1.13-20260917"
+          ],
+          "planned": 20,
+          "valid_responses": 20,
+          "correct_labels": 20,
+          "errors": 0,
+          "skipped": 0,
+          "median_ms": 399.04472350000003,
+          "mean_ms": 421.6488199,
+          "p95_ms": 507.8662813
+        },
+        {
+          "name": "classifier.dev",
+          "label": "classifier.dev \u00b7 Jev",
+          "returned_models": [
+            "jev-1.13.0"
+          ],
+          "planned": 20,
+          "valid_responses": 20,
+          "correct_labels": 20,
+          "errors": 0,
+          "skipped": 0,
+          "median_ms": 499.233387,
+          "mean_ms": 467.9846125,
+          "p95_ms": 512.4654434000001
+        }
+      ],
+      "json_url": "data/baseline-2026-09-21.json",
+      "csv_url": "data/baseline-2026-09-21.csv"
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+	"name": "jev-bench-site",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"test:web": "node --test web-tests/*.test.mjs"
+	}
+}

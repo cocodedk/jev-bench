@@ -1,0 +1,21 @@
+{
+  "dataset": "../datasets/customer-feedback.json",
+  "rounds": 1,
+  "warmups": 1,
+  "seed": 42,
+  "timeout_seconds": 15,
+  "max_seconds": 120,
+  "models": [
+    {
+      "name": "openrouter-jev",
+      "adapter": "openrouter-decisions",
+      "model": "typesafe/jev-1.13"
+    },
+    {
+      "name": "classifier-jev",
+      "adapter": "classifier.dev",
+      "model": "jev",
+      "tier": "fast"
+    }
+  ]
+}

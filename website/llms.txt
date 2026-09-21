@@ -1,0 +1,18 @@
+# Jev Bench
+
+Jev Bench is a classifier workbench at https://cocodedk.github.io/jev-bench/.
+The results page at /jev-bench/ declares native WebMCP tools through document.modelContext.registerTool.
+Use its tools when WebMCP is available; the page also has an experiment selector and metric buttons.
+
+- describe: describes the page, selected experiment, and available controls.
+- list_runs: lists the published runs available in the experiment selector.
+- get_results: reads the selected run's latency, accuracy counts, errors, and returned model names.
+- select_run: selects a published run using {"run_id":"..."} and returns the displayed results.
+- set_metric: chooses {"metric":"median_ms"}, {"metric":"mean_ms"}, or {"metric":"p95_ms"} and returns updated results.
+
+Read tools take {}. Responses always have {ok, error, data}; invalid inputs return ok:false and data:null.
+The page uses local published data; its tools do not call classification services or need API credentials.
+WebMCP is currently an experimental browser feature; the normal page works without it.
+
+Repository and reproducible experiments: https://github.com/cocodedk/jev-bench
+Published data: https://cocodedk.github.io/jev-bench/data/runs.json

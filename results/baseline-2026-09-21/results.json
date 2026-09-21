@@ -1,0 +1,56 @@
+{
+  "started_utc": "2026-09-21T10:39:37.678297+00:00",
+  "seed": 42,
+  "rounds": 1,
+  "expected_measured_pairs": 20,
+  "attempt_budget": 42,
+  "max_seconds": 120,
+  "requested_jev_model": "typesafe/jev-1.13",
+  "classifier_model": "jev",
+  "classifier_tier": "fast",
+  "jev_transport_sha256": "c93138bb754318dbc536a35a5a03404de6175ced6068521bd9af9bf214b6dc66",
+  "cases_sha256": "eb0c8cc439c07f84bf49ce5adb8e1e01affa78b6d529eedda9df1c03b8ed4aff",
+  "measurement": "client request-to-JSON latency; fresh connection; no CLI startup; no retries",
+  "sources": [
+    "https://classifier.dev/developers",
+    "https://classifier.dev/about"
+  ],
+  "complete": true,
+  "summary": {
+    "jev-decisions": {
+      "attempts": 20,
+      "valid_responses": 20,
+      "errors": 0,
+      "correct_labels": 20,
+      "accuracy_denominator": 20,
+      "models": [
+        "typesafe/jev-1.13-20260917"
+      ],
+      "mean_ms": 421.6488199,
+      "median_ms": 399.04472350000003,
+      "p95_ms": 507.8662813,
+      "min_ms": 297.717429,
+      "max_ms": 603.77329
+    },
+    "classifier.dev": {
+      "attempts": 20,
+      "valid_responses": 20,
+      "errors": 0,
+      "correct_labels": 20,
+      "accuracy_denominator": 20,
+      "models": [
+        "jev-1.13.0"
+      ],
+      "mean_ms": 467.9846125,
+      "median_ms": 499.233387,
+      "p95_ms": 512.4654434000001,
+      "min_ms": 394.713927,
+      "max_ms": 704.206193
+    },
+    "paired": {
+      "valid_pairs": 20,
+      "jev_faster": 14,
+      "classifier_faster": 6
+    }
+  }
+}

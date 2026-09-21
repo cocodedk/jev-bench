@@ -1,0 +1,43 @@
+adapter,case_id,confidence,expected,label,latency_ms,model_name,ok,pair,requested_model,returned_model,text,wall_ms,warmup
+classifier.dev,warmup,1.0,praise,praise,408.000848,classifier-jev,True,-1,jev,jev-1.13.0,I love how easy this app is to use.,534.463946,True
+classifier.dev,warmup,0.7874,praise,praise,1098.93518,classifier-laya,True,-1,laya,laya-0.3.4-english-fast,I love how easy this app is to use.,1208.779562,True
+classifier.dev,feedback-20,0.99,other,other,463.162584,classifier-jev,True,0,jev,jev-1.13.0,Do you offer training sessions for new customers?,609.371855,False
+classifier.dev,feedback-20,0.3492,other,other,543.401776,classifier-laya,True,0,laya,laya-0.3.4-english-fast,Do you offer training sessions for new customers?,658.518724,False
+classifier.dev,feedback-06,0.1979,feature request,feature request,802.655413,classifier-laya,True,1,laya,laya-0.3.4-english-fast,Could you support signing in with a hardware security key?,955.888466,False
+classifier.dev,feedback-06,1.0,feature request,feature request,376.930684,classifier-jev,True,1,jev,jev-1.13.0,Could you support signing in with a hardware security key?,567.855342,False
+classifier.dev,feedback-15,0.6698,praise,praise,423.068481,classifier-laya,True,2,laya,laya-0.3.4-english-fast,The keyboard shortcuts have made my daily work much easier.,599.052221,False
+classifier.dev,feedback-15,1.0,praise,praise,388.171537,classifier-jev,True,2,jev,jev-1.13.0,The keyboard shortcuts have made my daily work much easier.,541.743572,False
+classifier.dev,feedback-05,1.0,bug report,bug report,407.489852,classifier-jev,True,3,jev,jev-1.13.0,"I enter the correct password, but the login page stays blank.",499.834965,False
+classifier.dev,feedback-05,0.661,bug report,bug report,574.704942,classifier-laya,True,3,laya,laya-0.3.4-english-fast,"I enter the correct password, but the login page stays blank.",702.299827,False
+classifier.dev,feedback-10,0.99,feature request,feature request,340.230762,classifier-jev,True,4,jev,jev-1.13.0,I would like a dark theme for the mobile app.,446.217009,False
+classifier.dev,feedback-10,0.5844,feature request,feature request,542.888929,classifier-laya,True,4,laya,laya-0.3.4-english-fast,I would like a dark theme for the mobile app.,681.685343,False
+classifier.dev,feedback-14,0.135,feature request,feature request,389.304764,classifier-laya,True,5,laya,laya-0.3.4-english-fast,It would help if tasks could repeat on the first weekday of each month.,510.964613,False
+classifier.dev,feedback-14,1.0,feature request,feature request,417.084703,classifier-jev,True,5,jev,jev-1.13.0,It would help if tasks could repeat on the first weekday of each month.,521.541224,False
+classifier.dev,feedback-16,0.2596,other,other,711.559015,classifier-laya,True,6,laya,laya-0.3.4-english-fast,Please tell me which subscription plan I currently have.,818.536834,False
+classifier.dev,feedback-16,1.0,other,other,402.063075,classifier-jev,True,6,jev,jev-1.13.0,Please tell me which subscription plan I currently have.,523.77834,False
+classifier.dev,feedback-19,1.0,praise,praise,357.357825,classifier-jev,True,7,jev,jev-1.13.0,This is the cleanest interface I have used for managing projects.,471.671426,False
+classifier.dev,feedback-19,0.8094,praise,praise,384.951601,classifier-laya,True,7,laya,laya-0.3.4-english-fast,This is the cleanest interface I have used for managing projects.,517.204938,False
+classifier.dev,feedback-07,1.0,praise,praise,383.387092,classifier-jev,True,8,jev,jev-1.13.0,Thank you for making the setup so straightforward.,540.352307,False
+classifier.dev,feedback-07,0.5728,praise,praise,611.280141,classifier-laya,True,8,laya,laya-0.3.4-english-fast,Thank you for making the setup so straightforward.,768.982336,False
+classifier.dev,feedback-13,0.1831,bug report,other,599.849589,classifier-laya,True,9,laya,laya-0.3.4-english-fast,"After I save a note and reopen it, the last paragraph is missing.",738.425321,False
+classifier.dev,feedback-13,1.0,bug report,bug report,427.888864,classifier-jev,True,9,jev,jev-1.13.0,"After I save a note and reopen it, the last paragraph is missing.",591.148152,False
+classifier.dev,feedback-18,0.3864,feature request,feature request,571.389838,classifier-laya,True,10,laya,laya-0.3.4-english-fast,Please introduce a read-only role for external reviewers.,711.996586,False
+classifier.dev,feedback-18,1.0,feature request,feature request,459.405763,classifier-jev,True,10,jev,jev-1.13.0,Please introduce a read-only role for external reviewers.,602.104631,False
+classifier.dev,feedback-11,1.0,praise,praise,377.47447,classifier-jev,True,11,jev,jev-1.13.0,Your support team solved my problem quickly; excellent service.,480.234448,False
+classifier.dev,feedback-11,0.8834,praise,praise,408.398325,classifier-laya,True,11,laya,laya-0.3.4-english-fast,Your support team solved my problem quickly; excellent service.,534.96868,False
+classifier.dev,feedback-02,1.0,feature request,feature request,363.658836,classifier-jev,True,12,jev,jev-1.13.0,Please add an option to export reports as CSV.,464.401781,False
+classifier.dev,feedback-02,0.6122,feature request,feature request,418.273729,classifier-laya,True,12,laya,laya-0.3.4-english-fast,Please add an option to export reports as CSV.,555.436757,False
+classifier.dev,feedback-12,0.6126,other,other,442.932048,classifier-laya,True,13,laya,laya-0.3.4-english-fast,Is your company based in Denmark?,576.819542,False
+classifier.dev,feedback-12,1.0,other,other,389.845157,classifier-jev,True,13,jev,jev-1.13.0,Is your company based in Denmark?,520.652242,False
+classifier.dev,feedback-03,0.8855,praise,praise,418.850718,classifier-laya,True,14,laya,laya-0.3.4-english-fast,The new dashboard looks fantastic and is a pleasure to use.,569.754796,False
+classifier.dev,feedback-03,1.0,praise,praise,414.180468,classifier-jev,True,14,jev,jev-1.13.0,The new dashboard looks fantastic and is a pleasure to use.,540.000836,False
+classifier.dev,feedback-17,1.0,bug report,bug report,329.644218,classifier-jev,True,15,jev,jev-1.13.0,"The progress bar reaches 100 percent, but the uploaded file never appears.",447.253219,False
+classifier.dev,feedback-17,0.794,bug report,bug report,413.692931,classifier-laya,True,15,laya,laya-0.3.4-english-fast,"The progress bar reaches 100 percent, but the uploaded file never appears.",533.671188,False
+classifier.dev,feedback-08,1.0,other,other,386.286516,classifier-jev,True,16,jev,jev-1.13.0,Where can I find a copy of last month's invoice?,503.582704,False
+classifier.dev,feedback-08,0.4435,other,other,574.396718,classifier-laya,True,16,laya,laya-0.3.4-english-fast,Where can I find a copy of last month's invoice?,787.813188,False
+classifier.dev,feedback-09,0.6807,bug report,bug report,462.945615,classifier-laya,True,17,laya,laya-0.3.4-english-fast,The search field returns no results for files that are visible in my folder.,625.751016,False
+classifier.dev,feedback-09,1.0,bug report,bug report,396.343161,classifier-jev,True,17,jev,jev-1.13.0,The search field returns no results for files that are visible in my folder.,525.015415,False
+classifier.dev,feedback-01,0.8543,bug report,bug report,610.048441,classifier-laya,True,18,laya,laya-0.3.4-english-fast,The app crashes every time I click Export.,758.536542,False
+classifier.dev,feedback-01,1.0,bug report,bug report,423.645729,classifier-jev,True,18,jev,jev-1.13.0,The app crashes every time I click Export.,579.194726,False
+classifier.dev,feedback-04,1.0,other,other,367.931025,classifier-jev,True,19,jev,jev-1.13.0,What time does your support team open on Monday?,518.662434,False
+classifier.dev,feedback-04,0.2623,other,other,417.924872,classifier-laya,True,19,laya,laya-0.3.4-english-fast,What time does your support team open on Monday?,561.079506,False

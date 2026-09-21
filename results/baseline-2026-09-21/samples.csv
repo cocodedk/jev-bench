@@ -1,0 +1,43 @@
+confidence,escalated,expected,label,latency_ms,model,ok,pair,policy_status,provider,server_ms,text,unscored,warmup
+1,False,praise,praise,1092.647679,jev-1.13.0,True,-1,,classifier.dev,78,I love how easy this app is to use.,,True
+1,,praise,praise,505.158483,typesafe/jev-1.13-20260917,True,-1,selected,jev-decisions,,I love how easy this app is to use.,,True
+0.97,,other,other,399.057324,typesafe/jev-1.13-20260917,True,0,needs_review,jev-decisions,,Do you offer training sessions for new customers?,,False
+0.98,False,other,other,499.694494,jev-1.13.0,True,0,,classifier.dev,121,Do you offer training sessions for new customers?,,False
+1,False,feature request,feature request,398.772816,jev-1.13.0,True,1,,classifier.dev,109,Could you support signing in with a hardware security key?,,False
+0.99,,feature request,feature request,399.032123,typesafe/jev-1.13-20260917,True,1,selected,jev-decisions,,Could you support signing in with a hardware security key?,,False
+1,,praise,praise,372.775925,typesafe/jev-1.13-20260917,True,2,selected,jev-decisions,,The keyboard shortcuts have made my daily work much easier.,,False
+1,False,praise,praise,423.594851,jev-1.13.0,True,2,,classifier.dev,69,The keyboard shortcuts have made my daily work much easier.,,False
+1,False,bug report,bug report,500.54914,jev-1.13.0,True,3,,classifier.dev,88,"I enter the correct password, but the login page stays blank.",,False
+1,,bug report,bug report,399.669229,typesafe/jev-1.13-20260917,True,3,selected,jev-decisions,,"I enter the correct password, but the login page stays blank.",,False
+0.96,,feature request,feature request,397.663352,typesafe/jev-1.13-20260917,True,4,selected,jev-decisions,,I would like a dark theme for the mobile app.,,False
+0.99,False,feature request,feature request,500.9304,jev-1.13.0,True,4,,classifier.dev,114,I would like a dark theme for the mobile app.,,False
+1,False,feature request,feature request,399.140808,jev-1.13.0,True,5,,classifier.dev,84,It would help if tasks could repeat on the first weekday of each month.,,False
+1,,feature request,feature request,399.120515,typesafe/jev-1.13-20260917,True,5,selected,jev-decisions,,It would help if tasks could repeat on the first weekday of each month.,,False
+1,,other,other,406.867279,typesafe/jev-1.13-20260917,True,6,needs_review,jev-decisions,,Please tell me which subscription plan I currently have.,,False
+1,False,other,other,500.823964,jev-1.13.0,True,6,,classifier.dev,112,Please tell me which subscription plan I currently have.,,False
+1,False,praise,praise,501.742975,jev-1.13.0,True,7,,classifier.dev,105,This is the cleanest interface I have used for managing projects.,,False
+1,,praise,praise,398.643707,typesafe/jev-1.13-20260917,True,7,selected,jev-decisions,,This is the cleanest interface I have used for managing projects.,,False
+1,,praise,praise,603.77329,typesafe/jev-1.13-20260917,True,8,selected,jev-decisions,,Thank you for making the setup so straightforward.,,False
+1,False,praise,praise,500.751732,jev-1.13.0,True,8,,classifier.dev,77,Thank you for making the setup so straightforward.,,False
+1,False,bug report,bug report,500.307918,jev-1.13.0,True,9,,classifier.dev,127,"After I save a note and reopen it, the last paragraph is missing.",,False
+1,,bug report,bug report,399.138472,typesafe/jev-1.13-20260917,True,9,selected,jev-decisions,,"After I save a note and reopen it, the last paragraph is missing.",,False
+1,,feature request,feature request,501.623152,typesafe/jev-1.13-20260917,True,10,selected,jev-decisions,,Please introduce a read-only role for external reviewers.,,False
+1,False,feature request,feature request,498.77228,jev-1.13.0,True,10,,classifier.dev,109,Please introduce a read-only role for external reviewers.,,False
+1,False,praise,praise,399.083176,jev-1.13.0,True,11,,classifier.dev,74,Your support team solved my problem quickly; excellent service.,,False
+1,,praise,praise,502.818544,typesafe/jev-1.13-20260917,True,11,selected,jev-decisions,,Your support team solved my problem quickly; excellent service.,,False
+1,,feature request,feature request,397.035257,typesafe/jev-1.13-20260917,True,12,selected,jev-decisions,,Please add an option to export reports as CSV.,,False
+1,False,feature request,feature request,439.853272,jev-1.13.0,True,12,,classifier.dev,96,Please add an option to export reports as CSV.,,False
+1,False,other,other,394.713927,jev-1.13.0,True,13,,classifier.dev,107,Is your company based in Denmark?,,False
+1,,other,other,463.273342,typesafe/jev-1.13-20260917,True,13,needs_review,jev-decisions,,Is your company based in Denmark?,,False
+1,,praise,praise,501.182718,typesafe/jev-1.13-20260917,True,14,selected,jev-decisions,,The new dashboard looks fantastic and is a pleasure to use.,,False
+1,False,praise,praise,704.206193,jev-1.13.0,True,14,,classifier.dev,119,The new dashboard looks fantastic and is a pleasure to use.,,False
+1,False,bug report,bug report,397.240493,jev-1.13.0,True,15,,classifier.dev,76,"The progress bar reaches 100 percent, but the uploaded file never appears.",,False
+1,,bug report,bug report,398.784628,typesafe/jev-1.13-20260917,True,15,selected,jev-decisions,,"The progress bar reaches 100 percent, but the uploaded file never appears.",,False
+1,,other,other,397.861253,typesafe/jev-1.13-20260917,True,16,needs_review,jev-decisions,,Where can I find a copy of last month's invoice?,,False
+1,False,other,other,502.373825,jev-1.13.0,True,16,,classifier.dev,141,Where can I find a copy of last month's invoice?,,False
+1,False,bug report,bug report,500.555126,jev-1.13.0,True,17,,classifier.dev,120,The search field returns no results for files that are visible in my folder.,,False
+1,,bug report,bug report,398.114733,typesafe/jev-1.13-20260917,True,17,selected,jev-decisions,,The search field returns no results for files that are visible in my folder.,,False
+1,,bug report,bug report,297.717429,typesafe/jev-1.13-20260917,True,18,selected,jev-decisions,,The app crashes every time I click Export.,,False
+1,False,bug report,bug report,396.312841,jev-1.13.0,True,18,,classifier.dev,96,The app crashes every time I click Export.,,False
+1,False,other,other,400.272019,jev-1.13.0,True,19,,classifier.dev,80,What time does your support team open on Monday?,,False
+1,,other,other,398.824126,typesafe/jev-1.13-20260917,True,19,needs_review,jev-decisions,,What time does your support team open on Monday?,,False

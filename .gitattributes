@@ -1,0 +1,2 @@
+# Preserve the CSV writer's standard CRLF records in raw benchmark artifacts.
+*.csv -text whitespace=cr-at-eol

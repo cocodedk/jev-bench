@@ -1,0 +1,28 @@
+{
+	"runs": [
+		{
+			"id": "baseline-workbench-2026-09-21",
+			"title": "Jev vs. classifier.dev",
+			"subtitle": "Workbench runner \u00b7 OpenRouter and classifier.dev",
+			"path": "results/baseline-workbench-2026-09-21",
+			"dataset": "Customer feedback",
+			"notes": "Twenty synthetic messages, four labels, and one excluded warmup per route; both routes returned all 20 expected labels."
+		},
+		{
+			"id": "baseline-classifier-models-2026-09-21",
+			"title": "Jev vs. Laya",
+			"subtitle": "Workbench runner \u00b7 two classifier.dev models",
+			"path": "results/baseline-classifier-models-2026-09-21",
+			"dataset": "Customer feedback",
+			"notes": "Same dataset and fast tier; Jev returned 20/20 expected labels and Laya 19/20, with no failed requests."
+		},
+		{
+			"id": "baseline-2026-09-21",
+			"title": "Jev vs. classifier.dev \u00b7 prototype",
+			"subtitle": "Original prototype \u00b7 one message per request",
+			"path": "results/baseline-2026-09-21",
+			"dataset": "Customer feedback",
+			"notes": "Twenty synthetic messages, four labels, and one excluded warmup per service."
+		}
+	]
+}

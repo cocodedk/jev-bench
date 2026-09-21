@@ -1,0 +1,6 @@
+Jev Bench
+Copyright 2026 Cocode
+
+The OpenRouter Decisions adapter follows validation patterns from
+wuyoscar/jev-skill v0.1.2 (MIT), through the local jev-decisions skill.
+Its original copyright and license are retained in licenses/jev-skill-MIT.txt.
