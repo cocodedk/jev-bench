@@ -13,6 +13,7 @@ const output = resolve(
 	args.includes("--output") ? args[args.indexOf("--output") + 1] : "proof/site",
 );
 await mkdir(output, { recursive: true });
+const pct = (value) => (Number.isFinite(value) ? `${value.toFixed(1)}%` : "—");
 const delay = (ms) => new Promise((done) => setTimeout(done, ms));
 let server;
 let url = args.includes("--url") ? args[args.indexOf("--url") + 1] : null;
@@ -171,12 +172,20 @@ async function browser(enabled) {
 				result.tools = await evaluate(
 					"(async () => document.modelContext?.getTools ? (await document.modelContext.getTools()).map(tool => ({name:tool.name,description:tool.description})) : [])()",
 				);
-				if (result.tools.length >= 5) break;
+				if (result.tools.length >= 7) break;
 				await delay(50);
 			}
 			assert.deepEqual(
 				result.tools.map((tool) => tool.name).toSorted(),
-				["describe", "get_results", "list_runs", "select_run", "set_metric"],
+				[
+					"describe",
+					"get_accuracy",
+					"get_results",
+					"list_runs",
+					"select_accuracy_model",
+					"select_run",
+					"set_metric",
+				],
 				"Native getTools must list every page tool; absent tools are NOT PROVED",
 			);
 			async function execute(name, input) {
@@ -197,6 +206,55 @@ async function browser(enabled) {
 			const runs = await execute("list_runs", {});
 			assert.ok(runs.length > 0);
 			await execute("get_results", {});
+			const published = await evaluate(
+				"fetch('data/runs.json').then(response=>response.json())",
+			);
+			let accuracyChecks = 0;
+			async function accuracyMatches(expectedRun, expectedModel) {
+				const answer = await execute("get_accuracy", {});
+				assert.equal(answer.run_id, expectedRun.id);
+				assert.equal(answer.model_name, expectedModel.name);
+				assert.deepEqual(answer.metrics, expectedModel.accuracy);
+				assert.deepEqual(
+					answer.available_models,
+					expectedRun.models.map(({ name, label }) => ({ name, label })),
+				);
+				const dom = await evaluate(
+					`({model:document.getElementById("accuracy-model").value,score:document.getElementById("accuracy-score").textContent,f1:document.getElementById("accuracy-f1").textContent,correct:document.getElementById("accuracy-correct").textContent,wrong:document.getElementById("accuracy-wrong").textContent,classes:[...document.querySelectorAll("#accuracy-classes tr")].map(row=>[...row.cells].map(cell=>cell.textContent)),mistakes:[...document.querySelectorAll("#accuracy-mistakes tr")].map(row=>[...row.cells].map(cell=>cell.textContent))})`,
+				);
+				assert.equal(dom.model, answer.model_name);
+				assert.equal(dom.score, pct(answer.metrics?.accuracy_pct));
+				assert.equal(dom.f1, pct(answer.metrics?.macro_f1_pct));
+				if (answer.metrics) {
+					assert.equal(
+						dom.correct,
+						`${answer.metrics.correct} / ${answer.metrics.valid}`,
+					);
+					assert.equal(dom.wrong, String(answer.metrics.wrong));
+					assert.deepEqual(
+						dom.classes,
+						answer.metrics.classes.map((row) => [
+							row.label.replaceAll("_", " "),
+							`${row.correct}/${row.support}`,
+							pct(row.precision_pct),
+							pct(row.recall_pct),
+							pct(row.f1_pct),
+						]),
+					);
+					if (answer.metrics.mistakes.length)
+						assert.deepEqual(
+							dom.mistakes,
+							answer.metrics.mistakes.map((row) => [
+								row.text + row.case_id,
+								row.expected.replaceAll("_", " "),
+								row.predicted.replaceAll("_", " "),
+							]),
+						);
+				}
+				accuracyChecks++;
+				result.interactions.push({ accuracyVisible: dom });
+				return answer;
+			}
 			async function visibleMatches(snapshot) {
 				const visible = await evaluate(
 					`({run_id:document.getElementById('run-picker').value,title:document.getElementById('run-title').textContent,metric:document.querySelector('[data-metric][aria-pressed="true"]').dataset.metric,rows:document.querySelectorAll('#results-body tr').length,chartValues:[...document.querySelectorAll('.bar-value')].map(el=>el.textContent.trim())})`,
@@ -220,7 +278,48 @@ async function browser(enabled) {
 				const snapshot = await execute("get_results", {});
 				assert.equal(snapshot.run_id, run.id);
 				await visibleMatches(snapshot);
+				const sourceRun = published.runs.find((item) => item.id === run.id);
+				assert.equal(
+					snapshot.accuracy_model,
+					sourceRun.models[0].name,
+					"Run switch resets accuracy selection",
+				);
+				await accuracyMatches(sourceRun, sourceRun.models[0]);
+				for (const model of sourceRun.models) {
+					const selectedAccuracy = await execute("select_accuracy_model", {
+						model_name: model.name,
+					});
+					assert.equal(selectedAccuracy.model_name, model.name);
+					const current = await accuracyMatches(sourceRun, model);
+					assert.deepEqual(selectedAccuracy, current);
+				}
+				const foreign = published.runs
+					.flatMap((item) => item.models)
+					.find(
+						(model) =>
+							!sourceRun.models.some((current) => current.name === model.name),
+					);
+				if (foreign) {
+					const before = await execute("get_accuracy", {});
+					await rejectInput(
+						"select_accuracy_model",
+						JSON.stringify({ model_name: foreign.name }),
+					);
+					assert.deepEqual(
+						await execute("get_accuracy", {}),
+						before,
+						"Model from another run must be rejected",
+					);
+				}
 			}
+			assert.equal(
+				accuracyChecks,
+				published.runs.reduce((sum, run) => sum + run.models.length + 1, 0),
+				"Every published model and run reset was checked",
+			);
+			const crossRunRejections = result.interactions.filter((item) =>
+				Object.hasOwn(item, "rejected_input"),
+			).length;
 			for (const metric of ["mean_ms", "p95_ms", "median_ms"]) {
 				const updated = await execute("set_metric", { metric });
 				assert.equal(updated.metric, metric);
@@ -229,6 +328,7 @@ async function browser(enabled) {
 				await visibleMatches(snapshot);
 			}
 			const beforeInvalid = await execute("get_results", {});
+			const accuracyBeforeInvalid = await execute("get_accuracy", {});
 			async function rejectInput(name, rawInput) {
 				const value = await evaluate(
 					`(async () => { try { const tool = (await document.modelContext.getTools()).find(tool => tool.name === ${JSON.stringify(name)}); return await document.modelContext.executeTool(tool, ${JSON.stringify(rawInput)}); } catch (error) { return {native_rejected:true,error:String(error)}; } })()`,
@@ -252,7 +352,12 @@ async function browser(enabled) {
 					result: parsed,
 				});
 			}
-			for (const name of ["describe", "list_runs", "get_results"]) {
+			for (const name of [
+				"describe",
+				"list_runs",
+				"get_results",
+				"get_accuracy",
+			]) {
 				for (const raw of [
 					"{",
 					"[]",
@@ -264,6 +369,16 @@ async function browser(enabled) {
 					await rejectInput(name, raw);
 			}
 			for (const [name, inputs] of [
+				[
+					"select_accuracy_model",
+					[
+						{},
+						[],
+						{ model_name: "missing" },
+						{ model_name: 1 },
+						{ model_name: accuracyBeforeInvalid.model_name, extra: true },
+					],
+				],
 				[
 					"select_run",
 					[
@@ -293,6 +408,31 @@ async function browser(enabled) {
 				"Invalid native inputs must leave selected run and metric unchanged",
 			);
 			await visibleMatches(beforeInvalid);
+			assert.deepEqual(
+				await execute("get_accuracy", {}),
+				accuracyBeforeInvalid,
+				"Rejected inputs preserve accuracy selection",
+			);
+			assert.equal(
+				result.interactions.filter((item) =>
+					Object.hasOwn(item, "rejected_input"),
+				).length,
+				39 + crossRunRejections,
+				"All malformed native inputs were exercised",
+			);
+			const largest = published.runs
+				.flatMap((run) => run.models.map((model) => ({ run, model })))
+				.toSorted(
+					(a, b) =>
+						(b.model.accuracy?.classes.length ?? 0) -
+						(a.model.accuracy?.classes.length ?? 0),
+				)[0];
+			await execute("select_run", { run_id: largest.run.id });
+			await execute("select_accuracy_model", {
+				model_name: largest.model.name,
+			});
+			await accuracyMatches(largest.run, largest.model);
+			result.largestClassTable = largest.model.accuracy?.classes.length ?? 0;
 		} else {
 			result.nativeAvailable = await evaluate(
 				"Boolean(document.modelContext?.getTools)",
@@ -306,10 +446,16 @@ async function browser(enabled) {
 				"[...document.querySelectorAll('select,button,input')].filter(el => el.getBoundingClientRect().width > 0).length",
 			);
 			assert.ok(
-				result.visibleControls >= 2,
+				result.visibleControls >= 3,
 				"Human controls must remain rendered",
 			);
 		}
+		assert.ok(
+			await evaluate(
+				"document.querySelectorAll('#accuracy-model option').length>0 && document.querySelectorAll('#accuracy-classes tr').length>0",
+			),
+			"Accuracy section must render with and without native WebMCP",
+		);
 		for (const [label, width, height] of [
 			["desktop", 1440, 1000],
 			["mobile", 390, 844],
@@ -328,6 +474,17 @@ async function browser(enabled) {
 				dimensions.scroll <= dimensions.client,
 				`${label} horizontal overflow: ${JSON.stringify(dimensions)}`,
 			);
+			const classScroll = await evaluate(
+				"(()=>{const wrap=document.querySelector('.accuracy-scroll');return {height:wrap.clientHeight,scroll:wrap.scrollHeight,overflow:getComputedStyle(wrap).overflowY,rows:document.querySelectorAll('#accuracy-classes tr').length}})()",
+			);
+			assert.ok(
+				classScroll.height <= 340,
+				"Class table height stays constrained",
+			);
+			if (classScroll.rows > 20) {
+				assert.ok(classScroll.scroll > classScroll.height);
+				assert.ok(["auto", "scroll"].includes(classScroll.overflow));
+			}
 			const screenshot = await cdp("Page.captureScreenshot", {
 				format: "png",
 				captureBeyondViewport: true,

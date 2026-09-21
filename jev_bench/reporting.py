@@ -4,6 +4,7 @@ import itertools
 import math
 import statistics
 
+from .accuracy import classification_metrics
 from .config import Json
 
 
@@ -14,7 +15,8 @@ def percentile(values: list[float], fraction: float) -> float:
     return ordered[lower] + (ordered[upper] - ordered[lower]) * (position - lower)
 
 
-def summarize(rows: list[Json], names: list[str], planned_per_model: int) -> Json:
+def summarize(rows: list[Json], names: list[str], planned_per_model: int,
+              labels: list[str] | None = None) -> Json:
     models: Json = {}
     for name in names:
         measured = [r for r in rows if r["model_name"] == name and not r["warmup"]]
@@ -25,6 +27,7 @@ def summarize(rows: list[Json], names: list[str], planned_per_model: int) -> Jso
             "errors": len(measured) - len(valid),
             "correct_labels": sum(r["label"] == r["expected"] for r in valid),
             "accuracy_denominator": len(valid),
+            "accuracy": classification_metrics(measured, labels),
             "returned_models": sorted({r["returned_model"] for r in valid if r.get("returned_model")}),
             "missing_model_metadata": sum(r.get("returned_model") is None for r in valid),
             "mean_ms": statistics.mean(times) if times else None,
@@ -50,17 +53,24 @@ def format_metric(value: float | None) -> str:
     return f"{value:.1f}" if value is not None else "—"
 
 
+def format_percentage(value: float | None) -> str:
+    return f"{value:.1f}%" if value is not None else "—"
+
+
 def markdown_report(result: Json) -> str:
     lines = ["# Benchmark results", "", f"Started: {result['started_utc']}", "",
         f"Complete: {result['complete']}; attempts: {result['attempts_used']}/{result['attempt_budget']}.", "",
-        "| Model | Valid / planned | Median ms | Mean ms | p95 ms | Correct / valid | Errors | Skipped |",
-        "|---|---:|---:|---:|---:|---:|---:|---:|"]
+        "| Model | Valid / planned | Median ms | Mean ms | p95 ms | Correct / valid | Accuracy | Macro F1 | Errors | Skipped |",
+        "|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|"]
     for name, stats in result["summary"]["models"].items():
         lines.append(f"| {name} | {stats['valid_responses']}/{stats['planned']} | {format_metric(stats['median_ms'])} | "
             f"{format_metric(stats['mean_ms'])} | {format_metric(stats['p95_ms'])} | {stats['correct_labels']}/{stats['accuracy_denominator']} | "
+            f"{format_percentage(stats['accuracy']['accuracy_pct'])} | {format_percentage(stats['accuracy']['macro_f1_pct'])} | "
             f"{stats['errors']} | {stats['skipped']} |")
     lines += ["", "Latency includes request preparation, connection/TLS, server processing, transfer, and JSON parsing;",
         "it excludes worker startup and validation, which are included separately in wall_ms.",
         "Warmups and errors are excluded from latency statistics; accuracy uses valid labels only.",
+        "Macro F1 gives each declared label equal weight; zero-denominator class scores are zero.",
+        "Per-class precision, recall, F1, confusions, and every incorrect classification are in results.json.",
         "This is a descriptive sample from one machine, not a general model ranking.", ""]
     return "\n".join(lines)

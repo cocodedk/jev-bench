@@ -8,5 +8,5 @@
 - Record every attempt before sending it; enforce request and overall deadlines without automatic retries.
 - Changing an adapter requires an independent review and offline tests before a bounded live check.
 - Run `python3 -B tests/run_tests.py` (asserts the test count) and `lintp jev_bench tests`.
-- New results go under ignored `results/run-*`; only deliberately selected baselines belong in Git.
+- Plain runs stay under ignored `results/run-*`; `scripts/run_and_publish.py` explicitly publishes selected artifacts under `results/published/` and updates the manifest automatically.
 - Keep the published results UI static and dependency-free; select public runs explicitly in published-runs.json.

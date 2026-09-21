@@ -24,8 +24,18 @@ const mutations = [
 		"readOnlyHint: definition.readOnly",
 		"readOnlyHint: true",
 	],
+	[
+		"accuracy model allowlist",
+		"!controller\n\t\t\t\t\t\t\t\t\t.getResults()\n\t\t\t\t\t\t\t\t\t.models.some((model) => model.name === input.model_name)",
+		"false",
+	],
+	[
+		"untrusted sample annotation",
+		"].includes(definition.name)",
+		'].includes(definition.name) && definition.name !== "get_accuracy"',
+	],
 ];
-assert.equal(mutations.length, 4);
+assert.equal(mutations.length, 6);
 const directory = await mkdtemp(resolve(tmpdir(), "jev-webmcp-mutations-"));
 const killed = [];
 try {
@@ -44,7 +54,7 @@ try {
 		0,
 		`Unmutated tests must pass first:\n${baseline.stdout}${baseline.stderr}`,
 	);
-	assert.match(baseline.stdout, /tests 8/);
+	assert.match(baseline.stdout, /tests 13/);
 	for (const [name, before, after] of mutations) {
 		assert.equal(
 			source.split(before).length,
@@ -67,15 +77,15 @@ try {
 		);
 		assert.match(
 			result.stdout,
-			/tests 8/,
-			`Mutation must run all eight tests: ${name}`,
+			/tests 13/,
+			`Mutation must run all thirteen tests: ${name}`,
 		);
 		killed.push(name);
 	}
 } finally {
 	await rm(directory, { recursive: true, force: true });
 }
-assert.equal(killed.length, 4);
+assert.equal(killed.length, 6);
 console.log(
-	JSON.stringify({ mutants: 4, killed: killed.length, checks: killed }),
+	JSON.stringify({ mutants: 6, killed: killed.length, checks: killed }),
 );
