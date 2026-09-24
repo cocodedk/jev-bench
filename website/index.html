@@ -29,6 +29,8 @@
   <link rel="icon" type="image/svg+xml" href="favicon.svg" sizes="any">
   <link rel="apple-touch-icon" href="apple-touch-icon.png" sizes="180x180">
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://brand.cocode.dk/v1.css">
+  <script type="module" src="https://brand.cocode.dk/v1.js"></script>
   <title>Jev Bench — a classifier workbench</title>
   <script type="application/ld+json">
 {
@@ -62,10 +64,15 @@
 </head>
 <body>
   <a class="skip" href="#results">Skip to results</a>
-  <header class="site-header wrap">
-    <a class="brand" href="./" aria-label="Jev Bench home"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>jev<span class="brand-slash">/</span>bench</a>
-    <nav aria-label="Main"><a href="#accuracy">Accuracy</a><a href="#method">Method</a><a href="https://github.com/cocodedk/jev-bench">GitHub <span aria-hidden="true">↗</span></a></nav>
-  </header>
+  <!-- The cocode.dk family frame. Without JavaScript its children show instead: a way home
+       and the Accuracy/Method anchors (the old top bar's GitHub link is now cocode-foot's
+       repo=). -->
+  <cocode-head project="Jev Bench" accent="#d8754c" on-accent="#182a30" links="Accuracy:#accuracy,Method:#method">
+    <a href="https://cocode.dk">cocode.dk</a>
+    <a href="#accuracy">Accuracy</a>
+    <a href="#method">Method</a>
+    <a href="https://github.com/cocodedk/jev-bench">GitHub</a>
+  </cocode-head>
   <main class="wrap">
     <section class="hero">
       <p class="eyebrow"><span class="status-dot"></span> OPEN CLASSIFIER WORKBENCH</p>
@@ -112,7 +119,12 @@ python3 -m jev_bench --dry-run
 python3 -m jev_bench \
   --config experiments/classifier-models.json</code></pre></section>
   </main>
-  <footer class="wrap"><a class="brand small-brand" href="./">jev<span class="brand-slash">/</span>bench</a><p>Apache-2.0 · © 2026 <a href="https://cocode.dk">Cocode</a> · Created by <a href="https://linkedin.com/in/babakbandpey">Babak Bandpey</a></p><a href="llms.txt">For agents</a></footer>
+  <footer class="wrap"><a href="llms.txt">For agents</a></footer>
+
+  <cocode-foot repo="cocodedk/jev-bench">
+    <a href="https://cocode.dk">cocode.dk</a>
+    <a href="https://github.com/cocodedk/jev-bench">GitHub</a>
+  </cocode-foot>
   <script type="module" src="app.js"></script>
 </body>
 </html>
