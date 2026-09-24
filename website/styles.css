@@ -46,6 +46,14 @@ a:focus-visible {
 	width: min(1160px, calc(100% - 80px));
 	margin-inline: auto;
 }
+/* The cocode.dk frame lines up with .wrap's column. .wrap gets its gutter by shrinking its own
+   width (calc(100% - Npx)), not by padding inside a wider box the way the frame's own bar does --
+   so --cocode-max has to be .wrap's cap plus twice its base gutter (1160 + 80) for the two
+   models to agree once .wrap is capped; --cocode-gutter carries the gutter itself and is repeated
+   at .wrap's own breakpoints (80px/48px/36px halved). */
+cocode-head, cocode-foot { --cocode-max: 1240px; --cocode-gutter: 40px; }
+@media (max-width: 950px) { cocode-head, cocode-foot { --cocode-gutter: 24px; } }
+@media (max-width: 680px) { cocode-head, cocode-foot { --cocode-gutter: 18px; } }
 .skip {
 	position: absolute;
 	top: -80px;
@@ -57,58 +65,6 @@ a:focus-visible {
 }
 .skip:focus {
 	top: 15px;
-}
-.site-header {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	height: 100px;
-	border-bottom: 1px solid var(--line);
-}
-.brand {
-	font-weight: 750;
-	letter-spacing: -1.5px;
-	font-size: 27px;
-	text-decoration: none;
-	display: flex;
-	align-items: center;
-}
-.brand-slash {
-	color: var(--accent);
-	padding: 0 4px;
-}
-.brand-mark {
-	display: flex;
-	gap: 3px;
-	align-items: flex-end;
-	width: 31px;
-	height: 25px;
-	margin-right: 12px;
-}
-.brand-mark i {
-	display: block;
-	background: var(--green);
-	width: 6px;
-	border-radius: 2px;
-}
-.brand-mark i:nth-child(1) {
-	height: 14px;
-}
-.brand-mark i:nth-child(2) {
-	height: 24px;
-}
-.brand-mark i:nth-child(3) {
-	height: 19px;
-}
-.site-header nav {
-	display: flex;
-	gap: 32px;
-	font-size: 14px;
-	font-weight: 550;
-}
-.site-header nav a {
-	text-decoration: none;
-	padding: 12px 0;
 }
 .hero {
 	padding: 72px 0 68px;
@@ -553,20 +509,10 @@ footer {
 	justify-content: space-between;
 	gap: 24px;
 }
-footer.wrap p,
 footer > a:last-child {
 	font-size: 10px;
 	color: var(--muted);
 	line-height: 1.7;
-}
-footer.wrap p a {
-	text-decoration: none;
-}
-.small-brand {
-	font-size: 20px;
-}
-.small-brand .brand-slash {
-	padding: 0 3px;
 }
 @media (max-width: 950px) {
 	.wrap {
@@ -597,16 +543,6 @@ footer.wrap p a {
 @media (max-width: 680px) {
 	.wrap {
 		width: calc(100% - 36px);
-	}
-	.site-header {
-		height: 80px;
-	}
-	.site-header nav {
-		gap: 22px;
-		font-size: 12px;
-	}
-	.brand {
-		font-size: 24px;
 	}
 	.hero {
 		padding: 45px 0;
@@ -709,14 +645,6 @@ footer.wrap p a {
 		flex-wrap: wrap;
 		gap: 12px;
 	}
-	footer.wrap p {
-		order: 3;
-		width: 100%;
-		margin: 0;
-	}
-	.small-brand {
-		font-size: 20px;
-	}
 }
 @media (prefers-reduced-motion: reduce) {
 	html {
@@ -793,8 +721,5 @@ footer.wrap p a {
 	}
 	.accuracy-section h2 {
 		font-size: 28px;
-	}
-	.site-header nav {
-		gap: 14px;
 	}
 }
