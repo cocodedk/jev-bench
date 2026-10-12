@@ -723,3 +723,11 @@ footer > a:last-child {
 		font-size: 28px;
 	}
 }
+table.cases {
+	text-align: left;
+	font-size: 13px;
+	line-height: 1.5;
+}
+table.cases td:first-child {
+	white-space: nowrap;
+}
