@@ -1,6 +1,15 @@
 {
   "runs": [
     {
+      "id": "run-decisions-score-20261012",
+      "title": "decisions-score · 4 models",
+      "subtitle": "5 labels · expected answers withheld",
+      "path": "results/published/run-decisions-score-20261012",
+      "dataset": "decisions-score",
+      "notes": "50 labeled cases, 1 round(s), 200 recorded attempts; inspect accuracy and individual mistakes below.",
+      "source": null
+    },
+    {
       "id": "run-banking77-20260921",
       "title": "BANKING77 · 1 model",
       "subtitle": "77 labels · expected answers withheld",

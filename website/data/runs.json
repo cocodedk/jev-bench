@@ -2,6 +2,308 @@
   "version": 1,
   "runs": [
     {
+      "id": "run-decisions-score-20261012",
+      "title": "decisions-score \u00b7 4 models",
+      "subtitle": "5 labels \u00b7 expected answers withheld",
+      "dataset": "decisions-score",
+      "notes": "50 labeled cases, 1 round(s), 200 recorded attempts; inspect accuracy and individual mistakes below.",
+      "started_utc": "2026-10-12T08:00:08.459681+00:00",
+      "rounds": 1,
+      "cases": 50,
+      "measured_calls": 200,
+      "complete": true,
+      "attempts_used": 200,
+      "models": [
+        {
+          "name": "pplx-decider-v1.1-27b",
+          "label": "pplx-decider-v1.1-27b",
+          "returned_models": [
+            "perplexity/pplx-decider-v1.1-27b-20261006"
+          ],
+          "planned": 50,
+          "valid_responses": 50,
+          "correct_labels": 50,
+          "errors": 0,
+          "skipped": 0,
+          "accuracy": {
+            "accuracy_pct": 100.0,
+            "macro_f1_pct": 100.0,
+            "correct": 50,
+            "valid": 50,
+            "wrong": 0,
+            "classes": [
+              {
+                "label": "none",
+                "support": 10,
+                "predicted": 10,
+                "correct": 10,
+                "precision_pct": 100.0,
+                "recall_pct": 100.0,
+                "f1_pct": 100.0
+              },
+              {
+                "label": "low",
+                "support": 10,
+                "predicted": 10,
+                "correct": 10,
+                "precision_pct": 100.0,
+                "recall_pct": 100.0,
+                "f1_pct": 100.0
+              },
+              {
+                "label": "moderate",
+                "support": 10,
+                "predicted": 10,
+                "correct": 10,
+                "precision_pct": 100.0,
+                "recall_pct": 100.0,
+                "f1_pct": 100.0
+              },
+              {
+                "label": "high",
+                "support": 10,
+                "predicted": 10,
+                "correct": 10,
+                "precision_pct": 100.0,
+                "recall_pct": 100.0,
+                "f1_pct": 100.0
+              },
+              {
+                "label": "critical",
+                "support": 10,
+                "predicted": 10,
+                "correct": 10,
+                "precision_pct": 100.0,
+                "recall_pct": 100.0,
+                "f1_pct": 100.0
+              }
+            ],
+            "confusions": [],
+            "mistakes": []
+          },
+          "median_ms": 319.16794400000003,
+          "mean_ms": 549.23066122,
+          "p95_ms": 1914.1477380999943
+        },
+        {
+          "name": "typesafe-jev-latest",
+          "label": "typesafe-jev-latest",
+          "returned_models": [
+            "typesafe/jev-1.13-20260917"
+          ],
+          "planned": 50,
+          "valid_responses": 50,
+          "correct_labels": 50,
+          "errors": 0,
+          "skipped": 0,
+          "accuracy": {
+            "accuracy_pct": 100.0,
+            "macro_f1_pct": 100.0,
+            "correct": 50,
+            "valid": 50,
+            "wrong": 0,
+            "classes": [
+              {
+                "label": "none",
+                "support": 10,
+                "predicted": 10,
+                "correct": 10,
+                "precision_pct": 100.0,
+                "recall_pct": 100.0,
+                "f1_pct": 100.0
+              },
+              {
+                "label": "low",
+                "support": 10,
+                "predicted": 10,
+                "correct": 10,
+                "precision_pct": 100.0,
+                "recall_pct": 100.0,
+                "f1_pct": 100.0
+              },
+              {
+                "label": "moderate",
+                "support": 10,
+                "predicted": 10,
+                "correct": 10,
+                "precision_pct": 100.0,
+                "recall_pct": 100.0,
+                "f1_pct": 100.0
+              },
+              {
+                "label": "high",
+                "support": 10,
+                "predicted": 10,
+                "correct": 10,
+                "precision_pct": 100.0,
+                "recall_pct": 100.0,
+                "f1_pct": 100.0
+              },
+              {
+                "label": "critical",
+                "support": 10,
+                "predicted": 10,
+                "correct": 10,
+                "precision_pct": 100.0,
+                "recall_pct": 100.0,
+                "f1_pct": 100.0
+              }
+            ],
+            "confusions": [],
+            "mistakes": []
+          },
+          "median_ms": 327.7718695,
+          "mean_ms": 339.10092054,
+          "p95_ms": 466.8039962499999
+        },
+        {
+          "name": "gpt-6-luna-decisions",
+          "label": "gpt-6-luna-decisions",
+          "returned_models": [
+            "openai/gpt-6-luna-decisions-20261006"
+          ],
+          "planned": 50,
+          "valid_responses": 50,
+          "correct_labels": 50,
+          "errors": 0,
+          "skipped": 0,
+          "accuracy": {
+            "accuracy_pct": 100.0,
+            "macro_f1_pct": 100.0,
+            "correct": 50,
+            "valid": 50,
+            "wrong": 0,
+            "classes": [
+              {
+                "label": "none",
+                "support": 10,
+                "predicted": 10,
+                "correct": 10,
+                "precision_pct": 100.0,
+                "recall_pct": 100.0,
+                "f1_pct": 100.0
+              },
+              {
+                "label": "low",
+                "support": 10,
+                "predicted": 10,
+                "correct": 10,
+                "precision_pct": 100.0,
+                "recall_pct": 100.0,
+                "f1_pct": 100.0
+              },
+              {
+                "label": "moderate",
+                "support": 10,
+                "predicted": 10,
+                "correct": 10,
+                "precision_pct": 100.0,
+                "recall_pct": 100.0,
+                "f1_pct": 100.0
+              },
+              {
+                "label": "high",
+                "support": 10,
+                "predicted": 10,
+                "correct": 10,
+                "precision_pct": 100.0,
+                "recall_pct": 100.0,
+                "f1_pct": 100.0
+              },
+              {
+                "label": "critical",
+                "support": 10,
+                "predicted": 10,
+                "correct": 10,
+                "precision_pct": 100.0,
+                "recall_pct": 100.0,
+                "f1_pct": 100.0
+              }
+            ],
+            "confusions": [],
+            "mistakes": []
+          },
+          "median_ms": 270.265527,
+          "mean_ms": 280.812703,
+          "p95_ms": 446.70853919999996
+        },
+        {
+          "name": "microsoft-decision-1",
+          "label": "microsoft-decision-1",
+          "returned_models": [
+            "microsoft/microsoft-decision-1-20261009"
+          ],
+          "planned": 50,
+          "valid_responses": 50,
+          "correct_labels": 50,
+          "errors": 0,
+          "skipped": 0,
+          "accuracy": {
+            "accuracy_pct": 100.0,
+            "macro_f1_pct": 100.0,
+            "correct": 50,
+            "valid": 50,
+            "wrong": 0,
+            "classes": [
+              {
+                "label": "none",
+                "support": 10,
+                "predicted": 10,
+                "correct": 10,
+                "precision_pct": 100.0,
+                "recall_pct": 100.0,
+                "f1_pct": 100.0
+              },
+              {
+                "label": "low",
+                "support": 10,
+                "predicted": 10,
+                "correct": 10,
+                "precision_pct": 100.0,
+                "recall_pct": 100.0,
+                "f1_pct": 100.0
+              },
+              {
+                "label": "moderate",
+                "support": 10,
+                "predicted": 10,
+                "correct": 10,
+                "precision_pct": 100.0,
+                "recall_pct": 100.0,
+                "f1_pct": 100.0
+              },
+              {
+                "label": "high",
+                "support": 10,
+                "predicted": 10,
+                "correct": 10,
+                "precision_pct": 100.0,
+                "recall_pct": 100.0,
+                "f1_pct": 100.0
+              },
+              {
+                "label": "critical",
+                "support": 10,
+                "predicted": 10,
+                "correct": 10,
+                "precision_pct": 100.0,
+                "recall_pct": 100.0,
+                "f1_pct": 100.0
+              }
+            ],
+            "confusions": [],
+            "mistakes": []
+          },
+          "median_ms": 307.44786150000004,
+          "mean_ms": 324.1145783,
+          "p95_ms": 380.8412039
+        }
+      ],
+      "source": null,
+      "json_url": "data/run-decisions-score-20261012.json",
+      "csv_url": "data/run-decisions-score-20261012.csv"
+    },
+    {
       "id": "run-banking77-20260921",
       "title": "BANKING77 \u00b7 1 model",
       "subtitle": "77 labels \u00b7 expected answers withheld",
