@@ -27,7 +27,8 @@ jobs:
       - run: npm run test:web
       - run: node web-tests/mutations.mjs
       - run: python -B scripts/build_site_data.py
-      - run: git diff --exit-code -- website/data
+      - run: python -B scripts/build_test_sets.py
+      - run: git diff --exit-code -- website/data website/test-sets.html
       - uses: actions/upload-pages-artifact@7b1f4a764d45c48632c6b24a0339c27f5614fb0b # v4
         if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
         with:
