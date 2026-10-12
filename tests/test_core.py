@@ -120,6 +120,69 @@ class CoreTests(unittest.TestCase):
             with self.subTest(scores=scores), self.assertRaises((ValueError, TypeError)):
                 providers.decode_result(model, self.dataset, raw)
 
+    def test_noul_and_score_payloads(self):
+        model = {"adapter": "openrouter-decisions", "model": "v2"}
+        noul = {**self.dataset, "type": "noul", "labels": ["true", "false"]}
+        self.assertNotIn("criteria", providers.make_payload(model, noul, "x")["questions"]["category"])
+        noul["criteria"] = {"true": "safe", "false": "unsafe"}
+        self.assertEqual(providers.make_payload(model, noul, "x")["questions"]["category"],
+                         {"type": "noul", "instructions": noul["instructions"], "criteria": noul["criteria"]})
+        score = {**self.dataset, "type": "score", "labels": ["low", "mid", "high"],
+                 "criteria": {"low": "L", "mid": "M", "high": "H"}}
+        self.assertEqual(providers.make_payload(model, score, "x")["questions"]["category"]["criteria"], ["L", "M", "H"])
+
+    def test_noul_and_score_answers(self):
+        model = {"adapter": "openrouter-decisions"}
+        noul = {**self.dataset, "type": "noul", "labels": ["true", "false"]}
+        for truth, label, confidence in [(0.9, "true", 0.9), (0.5, "true", 0.5), (0.2, "false", 0.8)]:
+            raw = {"answers": {"category": {"type": "noul", "noul": truth}}}
+            result = providers.decode_result(model, noul, raw)
+            self.assertEqual((result["label"], result["confidence"]), (label, confidence))
+        score = {**self.dataset, "type": "score", "labels": ["low", "mid", "high"]}
+        probabilities = {"0": 0.1, "1": 0.3, "2": 0.6}
+        for value, label in [(0, "low"), (0.5, "mid"), (1.49, "mid"), (1.5, "high"), (2, "high")]:
+            raw = {"answers": {"category": {"type": "score", "score": value, "probabilities": probabilities, "confidence": .7}}}
+            self.assertEqual(providers.decode_result(model, score, raw)["label"], label)
+        for answer in [{"type": "choice", "choice": "low"}, {"type": "score", "score": 3, "probabilities": probabilities, "confidence": .7},
+                       {"type": "score", "score": True, "probabilities": probabilities, "confidence": .7},
+                       {"type": "score", "score": 1, "probabilities": {"0": 1}, "confidence": .7}]:
+            with self.subTest(answer=answer), self.assertRaises((ValueError, TypeError)):
+                providers.decode_result(model, score, {"answers": {"category": answer}})
+        for truth in [True, 1.5, None]:
+            with self.subTest(truth=truth), self.assertRaises((ValueError, TypeError)):
+                providers.decode_result(model, noul, {"answers": {"category": {"type": "noul", "noul": truth}}})
+
+    def test_question_type_dataset_rules(self):
+        def dataset(kind, labels, **extra):
+            return {**self.dataset, "type": kind, "labels": labels, **extra,
+                    "cases": [{"id": "1", "text": "t", "expected": labels[0]}]}
+        config.validate_dataset(dataset("noul", ["true", "false"]))
+        config.validate_dataset(dataset("score", [str(i) for i in range(10)]))
+        for bad in [dataset("judge", ["yes", "no"]), dataset("noul", ["false", "true"]),
+                    dataset("score", [str(i) for i in range(11)]), dataset("choice", ["yes", "no"], criteria={"yes": "y"}),
+                    dataset("choice", ["yes", "no"], criteria={"yes": "y", "no": ""})]:
+            with self.subTest(bad=bad), self.assertRaises((ValueError, TypeError)):
+                config.validate_dataset(bad)
+        for change in [{"type": "score"}, {"criteria": {"yes": "y", "no": "n"}}]:
+            self.dataset = {key: value for key, value in self.dataset.items() if key not in ("type", "criteria")}
+            self.dataset.update(change)
+            with self.subTest(change=change), self.assertRaises(ValueError):
+                self.experiment()
+        self.settings["models"] = [{"name": "j", "adapter": "openrouter-decisions", "model": "v2"}]
+        self.assertEqual(self.experiment().dataset["criteria"], {"yes": "y", "no": "n"})
+
+    def test_runner_sends_type_and_criteria(self):
+        self.dataset.update(type="noul", labels=["true", "false"], criteria={"true": "t", "false": "f"},
+                            cases=[{"id": "1", "text": "t", "expected": "true"}])
+        self.settings.update(models=[{"name": "j", "adapter": "openrouter-decisions", "model": "v2"}], warmups=0)
+        sent = []
+        def execute(request, _timeout):
+            sent.append(request["dataset"])
+            return {"ok": True, "label": "true", "confidence": 1, "returned_model": None, "latency_ms": 1, "wall_ms": 1}
+        with contextlib.redirect_stdout(io.StringIO()):
+            runner.run_experiment(self.experiment(), self.root / "out", execute)
+        self.assertEqual(sent, [{key: self.dataset[key] for key in ("type", "labels", "criteria", "instructions")}])
+
     def test_response_size_and_nonfinite(self):
         for body in [b'x' * (providers.MAX_RESPONSE_BYTES + 1), b'{"x":1e999}']:
             with patch.object(providers.urllib.request, "build_opener") as opener:
