@@ -1,6 +1,15 @@
 {
   "runs": [
     {
+      "id": "run-decisions-noul-20261012",
+      "title": "decisions-noul · 4 models",
+      "subtitle": "2 labels · expected answers withheld",
+      "path": "results/published/run-decisions-noul-20261012",
+      "dataset": "decisions-noul",
+      "notes": "50 labeled cases, 1 round(s), 200 recorded attempts; inspect accuracy and individual mistakes below.",
+      "source": null
+    },
+    {
       "id": "run-decisions-score-20261012",
       "title": "decisions-score · 4 models",
       "subtitle": "5 labels · expected answers withheld",
