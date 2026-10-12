@@ -22,10 +22,13 @@ class NoRedirect(urllib.request.HTTPRedirectHandler):
 
 def make_payload(model: Json, dataset: Json, text: str) -> Json:
     if model["adapter"] == "openrouter-decisions":
-        return {"model": model["model"], "state": text, "questions": {"category": {
-            "type": "choice", "instructions": dataset["instructions"],
-            "criteria": dict.fromkeys(dataset["labels"]),
-        }}}
+        kind, labels, criteria = dataset.get("type", "choice"), dataset["labels"], dataset.get("criteria")
+        question: Json = {"type": kind, "instructions": dataset["instructions"]}
+        if kind == "score":
+            question["criteria"] = [criteria[label] if criteria else label for label in labels]
+        elif kind == "choice" or criteria:
+            question["criteria"] = {label: criteria[label] if criteria else None for label in labels}
+        return {"model": model["model"], "state": text, "questions": {"category": question}}
     payload = {"model": model["model"], "inputs": [text], "labels": dataset["labels"],
                "instructions": dataset["instructions"], "tier": model.get("tier", "fast")}
     if "processing" in model:
@@ -48,24 +51,38 @@ def decode_result(model: Json, dataset: Json, raw: Any) -> Json:
     if "error" in response:
         raise ValueError("Provider returned an error")
     labels = dataset["labels"]
+    confidence: float | None
     if model["adapter"] == "openrouter-decisions":
         answers = object_value(response.get("answers"), "answers")
         if set(answers) != {"category"}:
             raise ValueError("Response question IDs do not match")
         answer = object_value(answers["category"], "answer")
-        if answer.get("type") != "choice":
-            raise ValueError("Expected a choice answer")
-        scores = object_value(answer.get("probabilities"), "probabilities")
-        if set(scores) != set(labels):
-            raise ValueError("Probability labels do not match")
-        for score in scores.values():
-            probability(score)
-        if not math.isclose(sum(scores.values()), 1, abs_tol=min(0.05, 0.0051 * len(labels))):
-            raise ValueError("Probabilities do not sum to one")
-        label = text_value(answer.get("choice"), "choice")
-        if label not in labels or scores[label] != max(scores.values()):
-            raise ValueError("Choice is not a highest-probability label")
-        confidence = probability(answer.get("confidence"))
+        kind = dataset.get("type", "choice")
+        if answer.get("type") != kind:
+            raise ValueError(f"Expected a {kind} answer")
+        if kind == "noul":
+            probability(answer.get("noul"))
+            truth = float(answer["noul"])
+            label, confidence = ("true", truth) if truth >= 0.5 else ("false", 1 - truth)
+        else:
+            levels = [str(i) for i in range(len(labels))] if kind == "score" else labels
+            scores = object_value(answer.get("probabilities"), "probabilities")
+            if set(scores) != set(levels):
+                raise ValueError("Probability labels do not match")
+            for score in scores.values():
+                probability(score)
+            if not math.isclose(sum(scores.values()), 1, abs_tol=min(0.05, 0.0051 * len(labels))):
+                raise ValueError("Probabilities do not sum to one")
+            if kind == "score":
+                value = answer.get("score")
+                if isinstance(value, bool) or not isinstance(value, (int, float)) or not 0 <= value <= len(labels) - 1:
+                    raise ValueError("Score is outside the rubric")
+                label = labels[math.floor(value + 0.5)]
+            else:
+                label = text_value(answer.get("choice"), "choice")
+                if label not in labels or scores[label] != max(scores.values()):
+                    raise ValueError("Choice is not a highest-probability label")
+            confidence = probability(answer.get("confidence"))
         returned_model = response.get("model")
     else:
         results = response.get("results")

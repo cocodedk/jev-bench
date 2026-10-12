@@ -9,6 +9,7 @@ from typing import Any
 
 Json = dict[str, Any]
 ADAPTERS = {"openrouter-decisions", "classifier.dev"}
+QUESTION_TYPES = {"choice", "noul", "score"}
 
 
 def finite_float(value: str) -> float:
@@ -63,7 +64,7 @@ def only_keys(data: Json, allowed: set[str], name: str) -> None:
 
 def validate_dataset(data: Any) -> Json:
     data = object_value(data, "dataset")
-    only_keys(data, {"name", "labels", "instructions", "cases", "warmup"}, "dataset")
+    only_keys(data, {"name", "type", "labels", "criteria", "instructions", "cases", "warmup"}, "dataset")
     text_value(data.get("name"), "dataset.name")
     text_value(data.get("instructions"), "dataset.instructions")
     labels = data.get("labels")
@@ -73,6 +74,19 @@ def validate_dataset(data: Any) -> Json:
         text_value(label, "label")
     if len(set(labels)) != len(labels):
         raise ValueError("Labels must be unique")
+    kind = data.get("type", "choice")
+    if kind not in QUESTION_TYPES:
+        raise ValueError("dataset.type must be choice, noul, or score")
+    if kind == "noul" and labels != ["true", "false"]:
+        raise ValueError('A noul dataset has the labels ["true", "false"]')
+    if kind == "score" and len(labels) > 10:
+        raise ValueError("A score dataset has 2–10 ordered labels, lowest first")
+    if "criteria" in data:
+        criteria = object_value(data["criteria"], "dataset.criteria")
+        if set(criteria) != set(labels):
+            raise ValueError("dataset.criteria must describe exactly the labels")
+        for description in criteria.values():
+            text_value(description, "criterion")
     cases = data.get("cases")
     if not isinstance(cases, list) or not 1 <= len(cases) <= 1000:
         raise ValueError("dataset.cases must contain 1–1000 cases")
@@ -140,4 +154,8 @@ def load_experiment(path: Path) -> Experiment:
             raise ValueError("tier and processing apply only to classifier.dev")
     if len(set(names)) != len(names):
         raise ValueError("Model names must be unique, even when comparing the same adapter")
-    return Experiment(data, validate_dataset(loads(dataset_path.read_bytes())), path, dataset_path)
+    dataset = validate_dataset(loads(dataset_path.read_bytes()))
+    if (dataset.get("type", "choice") != "choice" or "criteria" in dataset) and any(
+            m["adapter"] == "classifier.dev" for m in models):
+        raise ValueError("classifier.dev answers choice datasets without criteria only")
+    return Experiment(data, dataset, path, dataset_path)

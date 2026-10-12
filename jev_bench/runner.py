@@ -97,7 +97,7 @@ def run_experiment(experiment: Experiment, output: Path,
                     stop_reason = "deadline"
                 else:
                     request = {"model": model, "dataset": {k: experiment.dataset[k]
-                               for k in ("labels", "instructions")}, "text": case["text"], "timeout": timeout}
+                               for k in ("type", "labels", "criteria", "instructions") if k in experiment.dataset}, "text": case["text"], "timeout": timeout}
                     try:
                         row.update(execute(request, timeout))
                     except KeyboardInterrupt:
